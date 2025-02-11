@@ -18,7 +18,7 @@ status-website:
   # baseUrl: /your-repo-name
   logoUrl: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/Liquibase_io-white.svg
   name: Liquibase.io Status
-  introTitle: "Liquibase.io Status"
+  introTitle: "Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
   navbar:
     - title: Status
