@@ -5,7 +5,7 @@ repo: liquibase-io-status # The name of this repository
 sites:
   - name: Liquibase.io
     url: $LIQUIBASE_IO_MAIN_URL
-    icon: $LIQUIBASE_IO_MAIN_ICON
+    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
 
 assignees: # Users to assign downtime issues (optional)
   - jandroav
