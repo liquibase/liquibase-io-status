@@ -25,3 +25,8 @@ status-website:
       href: /
     - title: GitHub
       href: https://github.com/liquibase/liquibase-io-status
+
+user-agent: "liquibot"
+
+i18n:
+  footer: © 2025 Liquibase
