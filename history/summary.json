@@ -2,7 +2,7 @@
   {
     "name": "Liquibase.io",
     "url": "$LIQUIBASE_IO_MAIN_URL",
-    "icon": "$LIQUIBASE_IO_MAIN_ICON",
+    "icon": "https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io",
     "slug": "liquibase-io",
     "status": "up",
     "uptime": "100.00%",
@@ -10,11 +10,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 2650,
-    "timeDay": 2650,
-    "timeWeek": 2650,
-    "timeMonth": 2650,
-    "timeYear": 2650,
+    "time": 2782,
+    "timeDay": 2782,
+    "timeWeek": 2782,
+    "timeMonth": 2782,
+    "timeYear": 2782,
     "dailyMinutesDown": {}
   }
 ]
