@@ -21,7 +21,7 @@ status-website:
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
   navbar:
-    - title: 
+    - title: Status
       href: /
     - title: Incidents
       href: https://github.com/liquibase/liquibase-io-status/issues?q=is%3Aissue%20state%3Aopen%20label%3Aincident
