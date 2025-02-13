@@ -4,17 +4,19 @@
     "url": "$LIQUIBASE_IO_MAIN_URL",
     "icon": "https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io",
     "slug": "liquibase-io",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
     "uptimeDay": "100.00%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 2515,
-    "timeDay": 3681,
-    "timeWeek": 2515,
-    "timeMonth": 2515,
-    "timeYear": 2515,
-    "dailyMinutesDown": {}
+    "time": 2338,
+    "timeDay": 1948,
+    "timeWeek": 2338,
+    "timeMonth": 2338,
+    "timeYear": 2338,
+    "dailyMinutesDown": {
+      "2025-02-13": 0
+    }
   }
 ]
