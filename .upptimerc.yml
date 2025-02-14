@@ -6,6 +6,18 @@ sites:
   - name: Liquibase.io
     url: $LIQUIBASE_IO_MAIN_URL
     icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+  - name: Liquibase.io API
+    url: $LIQUIBASE_IO_API_URL
+    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+  - name: Liquibase.io Runner
+    url: $LIQUIBASE_IO_RUNNER_URL
+    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+  - name: Liquibase.io Dispatcher
+    url: $LIQUIBASE_IO_DISPATCHER_URL
+    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+  - name: Liquibase.io Connection Tester
+    url: $LIQUIBASE_IO_CONNECTION_TESTER_URL
+    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
 
 assignees: # Users to assign downtime issues (optional)
   - jandroav
