@@ -5,18 +5,16 @@
     "icon": "https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io",
     "slug": "liquibase-io",
     "status": "up",
-    "uptime": "99.81%",
-    "uptimeDay": "99.50%",
-    "uptimeWeek": "99.81%",
-    "uptimeMonth": "99.81%",
-    "uptimeYear": "99.81%",
-    "time": 2445,
-    "timeDay": 2580,
-    "timeWeek": 2445,
-    "timeMonth": 2445,
-    "timeYear": 2445,
-    "dailyMinutesDown": {
-      "2025-02-13": 7
-    }
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 2520,
+    "timeDay": 2540,
+    "timeWeek": 2520,
+    "timeMonth": 2520,
+    "timeYear": 2520,
+    "dailyMinutesDown": {}
   }
 ]
