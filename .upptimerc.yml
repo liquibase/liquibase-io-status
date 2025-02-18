@@ -5,25 +5,26 @@ repo: liquibase-io-status # The name of this repository
 sites:
   - name: Liquibase.io
     url: $LIQUIBASE_IO_MAIN_URL
-    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
   - name: Liquibase.io API
     url: $LIQUIBASE_IO_API_URL
-    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
   - name: Liquibase.io Runner
     url: $LIQUIBASE_IO_RUNNER_URL
-    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
   - name: Liquibase.io Dispatcher
     url: $LIQUIBASE_IO_DISPATCHER_URL
-    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
   - name: Liquibase.io Connection Tester
     url: $LIQUIBASE_IO_CONNECTION_TESTER_URL
-    icon: https://s2.googleusercontent.com/s2/favicons?domain_url=https://prod.liquibase.io
+    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
 
 assignees: # Users to assign downtime issues (optional)
   - jandroav
 
 status-website:
   theme: dark
+  faviconSvg: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.liquibase.io
@@ -35,10 +36,6 @@ status-website:
   navbar:
     - title: Status
       href: /
-    - title: Incidents
-      href: https://github.com/liquibase/liquibase-io-status/issues?q=is%3Aissue%20state%3Aopen%20label%3Aincident
-    - title: Maintenance
-      href: https://github.com/liquibase/liquibase-io-status/issues?q=is%3Aissue%20state%3Aopen%20label%3Amaintenance
 
 user-agent: "liquibot"
 
