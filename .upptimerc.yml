@@ -5,31 +5,31 @@ repo: liquibase-io-status # The name of this repository
 sites:
   - name: Liquibase.io
     url: $LIQUIBASE_IO_MAIN_URL
-    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+    icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   - name: Liquibase.io API
     url: $LIQUIBASE_IO_API_URL
-    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+    icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   - name: Liquibase.io Runner
     url: $LIQUIBASE_IO_RUNNER_URL
-    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+    icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   - name: Liquibase.io Dispatcher
     url: $LIQUIBASE_IO_DISPATCHER_URL
-    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+    icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   - name: Liquibase.io Connection Tester
     url: $LIQUIBASE_IO_CONNECTION_TESTER_URL
-    icon: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+    icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
 
 assignees: # Users to assign downtime issues (optional)
   - jandroav
 
 status-website:
   theme: dark
-  faviconSvg: https://github.com/liquibase/premier-web/blob/078f5bfb28e3faf32441b6a57a5af625e303aaca/public/liquibase.svg
+  faviconSvg: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.liquibase.io
   # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/Liquibase_io-white.svg
+  logoUrl: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_white.svg
   name: Status
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
