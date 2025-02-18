@@ -40,18 +40,20 @@
     "url": "$LIQUIBASE_IO_RUNNER_URL",
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
     "slug": "liquibase-io-runner",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1071,
-    "timeDay": 1014,
-    "timeWeek": 1071,
-    "timeMonth": 1071,
-    "timeYear": 1071,
-    "dailyMinutesDown": {}
+    "time": 1141,
+    "timeDay": 1152,
+    "timeWeek": 1141,
+    "timeMonth": 1141,
+    "timeYear": 1141,
+    "dailyMinutesDown": {
+      "2025-02-18": 0
+    }
   },
   {
     "name": "Liquibase.io Dispatcher",
