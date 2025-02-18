@@ -33,9 +33,7 @@ status-website:
   name: Status
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
-  navbar:
-    - title: Status
-      href: /
+
 
 user-agent: "liquibot"
 
