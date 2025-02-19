@@ -52,12 +52,21 @@ status-website:
       });
     }
     
-    // Convert dates on initial load
-    window.addEventListener('load', convertDatesToUTC);
-    
-    // Convert dates when content changes (for dynamic updates)
-    const observer = new MutationObserver(convertDatesToUTC);
-    observer.observe(document.body, { childList: true, subtree: true });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initial conversion
+      convertDatesToUTC();
+      
+      // Set up observer only after DOM is ready
+      const targetNode = document.body;
+      if (targetNode) {
+        const observer = new MutationObserver(convertDatesToUTC);
+        observer.observe(targetNode, { 
+          childList: true, 
+          subtree: true,
+          characterData: true 
+        });
+      }
+    });
   customHeadHtml: |
     <style>
       dd { font-family: monospace; }
