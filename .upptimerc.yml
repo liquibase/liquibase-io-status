@@ -42,31 +42,50 @@ status-website:
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
   js: |
-    function convertDatesToUTC() {
-      const dateElements = document.querySelectorAll('dd');
-      dateElements.forEach(el => {
-        if (el.innerText.includes('/')) {
-          const date = new Date(el.innerText);
-          el.innerText = date.toUTCString().replace('GMT', 'UTC');
-        }
-      });
-    }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initial conversion
-      convertDatesToUTC();
-      
-      // Set up observer only after DOM is ready
-      const targetNode = document.body;
-      if (targetNode) {
+    (function() {
+      function convertDatesToUTC() {
+        requestAnimationFrame(() => {
+          // Convert dates in dd elements
+          const dateElements = document.querySelectorAll('dd');
+          dateElements.forEach(el => {
+            if (el.innerText.includes('/')) {
+              const date = new Date(el.innerText);
+              el.innerText = date.toUTCString();
+            }
+          });
+
+          // Convert dates in incident headers
+          const incidentDivs = document.querySelectorAll('div.f div');
+          incidentDivs.forEach(div => {
+            const text = div.innerText;
+            if (text.includes('Opened at')) {
+              const dateStr = text.match(/Opened at (.*?) with/)?.[1];
+              if (dateStr) {
+                const date = new Date(dateStr);
+                div.innerText = text.replace(dateStr, date.toUTCString());
+              }
+            }
+          });
+        });
+      }
+
+      // Wait for document load without blocking
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initObserver);
+      } else {
+        initObserver();
+      }
+
+      function initObserver() {
+        convertDatesToUTC();
         const observer = new MutationObserver(convertDatesToUTC);
-        observer.observe(targetNode, { 
+        observer.observe(document.body, { 
           childList: true, 
           subtree: true,
           characterData: true 
         });
       }
-    });
+    })();
   customHeadHtml: |
     <style>
       dd { font-family: monospace; }
