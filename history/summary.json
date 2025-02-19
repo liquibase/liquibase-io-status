@@ -1,23 +1,5 @@
 [
   {
-    "name": "Liquibase.io",
-    "url": "$LIQUIBASE_IO_MAIN_URL",
-    "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
-    "slug": "liquibase-io",
-    "status": "up",
-    "uptime": "100.00%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
-    "time": 2516,
-    "timeDay": 2012,
-    "timeWeek": 2607,
-    "timeMonth": 2516,
-    "timeYear": 2516,
-    "dailyMinutesDown": {}
-  },
-  {
     "name": "Liquibase.io API",
     "url": "$LIQUIBASE_IO_API_URL",
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
@@ -28,12 +10,32 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1146,
-    "timeDay": 1058,
-    "timeWeek": 1146,
-    "timeMonth": 1146,
-    "timeYear": 1146,
+    "time": 1173,
+    "timeDay": 1115,
+    "timeWeek": 1173,
+    "timeMonth": 1173,
+    "timeYear": 1173,
     "dailyMinutesDown": {}
+  },
+  {
+    "name": "Liquibase.io WEB",
+    "url": "$LIQUIBASE_IO_MAIN_URL",
+    "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
+    "slug": "liquibase-io-web",
+    "status": "down",
+    "uptime": "8.18%",
+    "uptimeDay": "8.18%",
+    "uptimeWeek": "8.18%",
+    "uptimeMonth": "8.18%",
+    "uptimeYear": "8.18%",
+    "time": 173,
+    "timeDay": 173,
+    "timeWeek": 173,
+    "timeMonth": 173,
+    "timeYear": 173,
+    "dailyMinutesDown": {
+      "2025-02-19": 0
+    }
   },
   {
     "name": "Liquibase.io Runner",
@@ -46,11 +48,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1156,
-    "timeDay": 1096,
-    "timeWeek": 1156,
-    "timeMonth": 1156,
-    "timeYear": 1156,
+    "time": 1192,
+    "timeDay": 1163,
+    "timeWeek": 1192,
+    "timeMonth": 1192,
+    "timeYear": 1192,
     "dailyMinutesDown": {}
   },
   {
@@ -64,11 +66,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1108,
-    "timeDay": 805,
-    "timeWeek": 1108,
-    "timeMonth": 1108,
-    "timeYear": 1108,
+    "time": 1138,
+    "timeDay": 910,
+    "timeWeek": 1138,
+    "timeMonth": 1138,
+    "timeYear": 1138,
     "dailyMinutesDown": {}
   },
   {
@@ -82,11 +84,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1056,
-    "timeDay": 808,
-    "timeWeek": 1056,
-    "timeMonth": 1056,
-    "timeYear": 1056,
+    "time": 1138,
+    "timeDay": 1000,
+    "timeWeek": 1138,
+    "timeMonth": 1138,
+    "timeYear": 1138,
     "dailyMinutesDown": {}
   }
 ]
