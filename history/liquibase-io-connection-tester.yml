@@ -1,7 +1,7 @@
 url: $LIQUIBASE_IO_CONNECTION_TESTER_URL
 status: up
 code: 200
-responseTime: 325
-lastUpdated: 2025-02-19T09:40:34.013Z
+responseTime: 1054
+lastUpdated: 2025-02-19T09:47:00.868Z
 startTime: 2025-02-14T12:22:57.485Z
 generator: Upptime <https://github.com/upptime/upptime>
