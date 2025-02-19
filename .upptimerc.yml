@@ -22,8 +22,11 @@ sites:
 assignees: # Users to assign downtime issues (optional)
   - jandroav
 
+skipDeleteIssues: true
+
 status-website:
   theme: dark
+  favicon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.png
   faviconSvg: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
