@@ -43,23 +43,11 @@ status-website:
   introMessage: "Monitor availability and performance of Liquibase.io"
   js: |
     function convertDatesToUTC() {
-      // Convert DD elements (existing functionality)
       const dateElements = document.querySelectorAll('dd');
       dateElements.forEach(el => {
         if (el.innerText.includes('/')) {
           const date = new Date(el.innerText);
           el.innerText = date.toUTCString().replace('GMT', 'UTC');
-        }
-      });
-
-      // Convert incident times
-      const incidentElements = document.querySelectorAll('.f div div');
-      incidentElements.forEach(el => {
-        const text = el.innerText;
-        if (text.includes('Opened at')) {
-          const dateStr = text.match(/Opened at (.*?) with/)[1];
-          const date = new Date(dateStr);
-          el.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
         }
       });
     }
