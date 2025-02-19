@@ -113,6 +113,10 @@ status-website:
     .container.svelte-a08hsz.svelte-a08hsz {
       justify-content: left !important;
     }
+    article.down {
+      border-color: eb3b5a !important;
+      background: 6b1020 !important;
+    }
     </style>
 
 user-agent: "liquibot"
