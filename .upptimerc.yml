@@ -50,7 +50,7 @@ status-website:
           dateElements.forEach(el => {
             if (el.innerText.includes('/')) {
               const date = new Date(el.innerText);
-              el.innerText = date.toUTCString();
+              el.innerText = date.toUTCString().replace('GMT', 'UTC');
             }
           });
 
@@ -62,7 +62,7 @@ status-website:
               const dateStr = text.match(/Opened at (.*?) with/)?.[1];
               if (dateStr) {
                 const date = new Date(dateStr);
-                div.innerText = text.replace(dateStr, date.toUTCString());
+                div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
               }
             }
           });
