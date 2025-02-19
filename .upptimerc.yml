@@ -122,10 +122,12 @@ status-website:
       background: var(--down-background-color) !important;
     }
 
+    article.degraded,
     section article.degraded,
-    article.degraded.degraded-active {
+    main article.degraded.degraded-active,
+    section article.degraded.link {
       border-color: var(--degraded-border-left-color) !important;
-      background: var(--degraded-background-color) !important;
+      background: rgba(255, 152, 0, 0.1) !important;
     }
 
     </style>
