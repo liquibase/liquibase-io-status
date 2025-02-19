@@ -41,7 +41,27 @@ status-website:
   name: Status
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase.io"
-
+  js: |
+    function convertDatesToUTC() {
+      const dateElements = document.querySelectorAll('dd');
+      dateElements.forEach(el => {
+        if (el.innerText.includes('/')) {
+          const date = new Date(el.innerText);
+          el.innerText = date.toUTCString();
+        }
+      });
+    }
+    
+    // Convert dates on initial load
+    window.addEventListener('load', convertDatesToUTC);
+    
+    // Convert dates when content changes (for dynamic updates)
+    const observer = new MutationObserver(convertDatesToUTC);
+    observer.observe(document.body, { childList: true, subtree: true });
+  customHeadHtml: |
+    <style>
+      dd { font-family: monospace; }
+    </style>
 
 user-agent: "liquibot"
 
