@@ -30,6 +30,9 @@ assignees: # Users to assign downtime issues (optional)
 skipDeleteIssues: true
 
 status-website:
+  navbar:
+    - title: History
+      href: /#past-incidents
   theme: dark
   favicon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.png
   faviconSvg: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
@@ -43,6 +46,16 @@ status-website:
   introMessage: "Monitor availability and performance of Liquibase.io"
   js: |
     (function() {
+      function addPastIncidentsId() {
+        const h2Elements = document.querySelectorAll('h2.svelte-18y4uo2');
+        for (const h2 of h2Elements) {
+          if (h2.textContent === 'Past Incidents') {
+            h2.id = 'past-incidents';
+            break;
+          }
+        }
+      }
+
       function convertDatesToUTC() {
         requestAnimationFrame(() => {
           // Convert dates in dd elements
@@ -78,7 +91,11 @@ status-website:
 
       function initObserver() {
         convertDatesToUTC();
-        const observer = new MutationObserver(convertDatesToUTC);
+        addPastIncidentsId();
+        const observer = new MutationObserver((mutations) => {
+          convertDatesToUTC();
+          addPastIncidentsId();
+        });
         observer.observe(document.body, { 
           childList: true, 
           subtree: true,
@@ -89,6 +106,9 @@ status-website:
   customHeadHtml: |
     <style>
       dd { font-family: monospace; }
+      html {
+        scroll-padding-top: 70px; /* Adjust based on your header height */
+      }
     </style>
 
 user-agent: "liquibot"
