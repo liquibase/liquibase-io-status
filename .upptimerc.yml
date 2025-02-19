@@ -4,7 +4,7 @@ repo: liquibase-io-status # The name of this repository
 
 sites:
   - name: Liquibase.io API
-    url: $LIQUIBASE_IO_API_URL
+    url: $LIQUIBASE_IO_API_URLL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io WEB
@@ -12,11 +12,11 @@ sites:
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Runner
-    url: $LIQUIBASE_IO_RUNNER_URL
+    url: $LIQUIBASE_IO_RUNNER_URLL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Dispatcher
-    url: $LIQUIBASE_IO_DISPATCHER_URL
+    url: $LIQUIBASE_IO_DISPATCHER_URLL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Connection Tester
