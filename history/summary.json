@@ -4,19 +4,19 @@
     "url": "$LIQUIBASE_IO_API_URL",
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
     "slug": "liquibase-io-api",
-    "status": "degraded",
-    "uptime": "97.93%",
-    "uptimeDay": "88.70%",
-    "uptimeWeek": "97.93%",
-    "uptimeMonth": "97.93%",
-    "uptimeYear": "97.93%",
-    "time": 2865,
-    "timeDay": 3413,
-    "timeWeek": 2865,
-    "timeMonth": 2865,
-    "timeYear": 2865,
+    "status": "up",
+    "uptime": "97.86%",
+    "uptimeDay": "88.30%",
+    "uptimeWeek": "97.86%",
+    "uptimeMonth": "97.86%",
+    "uptimeYear": "97.86%",
+    "time": 2843,
+    "timeDay": 3368,
+    "timeWeek": 2843,
+    "timeMonth": 2843,
+    "timeYear": 2843,
     "dailyMinutesDown": {
-      "2025-02-19": 164
+      "2025-02-19": 170
     }
   },
   {
