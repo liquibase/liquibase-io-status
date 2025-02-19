@@ -126,8 +126,8 @@ status-website:
     section article.degraded,
     main article.degraded.degraded-active,
     section article.degraded.link {
-      border-color: var(--degraded-border-left-color) !important;
-      background: var(--tag-degraded-background-color) !important;
+      border-color: #808080 !important;
+      background: #A9A9A9 !important;
     }
 
     </style>
