@@ -23,4 +23,6 @@
   --submit-button-color: #ffffff;
   --graph-opacity: 1;
   --graph-filter: none;
+  --degraded-border-left-color: #808080;
+  --degraded-background-color: #4a4a4a;
 }
