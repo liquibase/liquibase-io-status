@@ -110,20 +110,9 @@ status-website:
         scroll-padding-top: 70px; /* Adjust based on your header height */
       }
       /* Add navbar styling */
-      header > div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
-      }
-      header ul.svelte-a08hsz {
-        margin-left: 2rem;
-      }
-      header > div {
-        gap: 1rem;
-      }
+    .container.svelte-a08hsz.svelte-a08hsz {
+      justify-content: left !important;
+    }
     </style>
 
 user-agent: "liquibot"
