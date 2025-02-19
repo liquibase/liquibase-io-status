@@ -8,7 +8,7 @@
   --card-border-color: #015450;
   --down-border-left-color: #eb3b5a;
   --down-background-color: #6b1020;
-  --degraded-border-left-color: #f7b731;
+  --degraded-border-left-color: #808080;
   --up-border-left-color: #20bf6b;
   --tag-color: #002b29;
   --tag-up-background-color: #20bf6b;
@@ -23,6 +23,4 @@
   --submit-button-color: #ffffff;
   --graph-opacity: 1;
   --graph-filter: none;
-  --degraded-border-left-color: #808080;
-  --degraded-background-color: #4a4a4a;
 }
