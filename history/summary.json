@@ -23,19 +23,17 @@
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
     "slug": "liquibase-io-api",
     "status": "up",
-    "uptime": "99.88%",
-    "uptimeDay": "99.48%",
-    "uptimeWeek": "99.88%",
-    "uptimeMonth": "99.88%",
-    "uptimeYear": "99.88%",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
     "time": 1122,
     "timeDay": 1001,
     "timeWeek": 1122,
     "timeMonth": 1122,
     "timeYear": 1122,
-    "dailyMinutesDown": {
-      "2025-02-18": 8
-    }
+    "dailyMinutesDown": {}
   },
   {
     "name": "Liquibase.io Runner",
