@@ -47,7 +47,7 @@ status-website:
       dateElements.forEach(el => {
         if (el.innerText.includes('/')) {
           const date = new Date(el.innerText);
-          el.innerText = date.toUTCString();
+          el.innerText = date.toUTCString().replace('GMT', 'UTC');
         }
       });
     }
