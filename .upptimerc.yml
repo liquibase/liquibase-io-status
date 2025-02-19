@@ -4,7 +4,7 @@ repo: liquibase-io-status # The name of this repository
 
 sites:
   - name: Liquibase.io API
-    url: $LIQUIBASE_IO_API_URLL
+    url: $LIQUIBASE_IO_API_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io WEB
@@ -12,11 +12,11 @@ sites:
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Runner
-    url: $LIQUIBASE_IO_RUNNER_URLL
+    url: $LIQUIBASE_IO_RUNNER_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Dispatcher
-    url: $LIQUIBASE_IO_DISPATCHER_URLL
+    url: $LIQUIBASE_IO_DISPATCHER_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
     maxResponseTime: 7000
   - name: Liquibase.io Connection Tester
@@ -113,9 +113,11 @@ status-website:
     .container.svelte-a08hsz.svelte-a08hsz {
       justify-content: left !important;
     }
-    article.down {
-      border-color: eb3b5a !important;
-      background: 6b1020 !important;
+    section article.down,
+    section.live-status article.down,
+    article.down.down-active {
+      border-color: var(--down-border-left-color) !important;
+      background: var(--down-background-color) !important;
     }
     </style>
 
