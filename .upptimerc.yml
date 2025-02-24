@@ -130,11 +130,6 @@ status-website:
       background: #A9A9A9 !important;
     }
 
-    /* Hide average response time */
-    span.data.svelte-fqsq6s,
-    :is(p, div):has(span.data.svelte-fqsq6s) {
-      display: none !important;
-    }
     </style>
 
 user-agent: "liquibot"
