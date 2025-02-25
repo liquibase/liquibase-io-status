@@ -130,6 +130,12 @@ status-website:
       background: #A9A9A9 !important;
     }
 
+    /* Hide specified article elements completely */
+    article.up:nth-child(1),
+    article.link:nth-child(2) {
+      display: none;
+    }
+
     /* Hide specified div elements */
     article.up:nth-child(1) > div:nth-child(2),
     article.up:nth-child(1) > div:nth-child(3),
