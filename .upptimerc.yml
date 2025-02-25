@@ -143,6 +143,7 @@ status-website:
     article.up:nth-child(5) > div:nth-child(3) {
       display: none;
     }
+
     /* Make h4 links not clickable */
     article.up:nth-child(1) > h4:nth-child(1) > a:nth-child(2),
     article.link:nth-child(2) > h4:nth-child(1) > a:nth-child(2),
@@ -169,10 +170,7 @@ status-website:
       background: transparent !important;
     }
 
-    /* Hide form.f elements */
-    div.f, form.f {
-      display: none !important;
-    }
+
     </style>
 
 user-agent: "liquibot"
