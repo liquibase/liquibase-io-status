@@ -130,6 +130,11 @@ status-website:
       background: #A9A9A9 !important;
     }
 
+    /* Hide specified div elements */
+    article.up:nth-child(1) > div:nth-child(2),
+    article.up:nth-child(1) > div:nth-child(3) {
+      display: none;
+    }
     </style>
 
 user-agent: "liquibot"
