@@ -144,6 +144,15 @@ status-website:
       display: none;
     }
     
+    /* Hide links in h4 elements */
+    article.up:nth-child(1) > h4:nth-child(1) > a:nth-child(2),
+    article.link:nth-child(2) > h4:nth-child(1) > a:nth-child(2),
+    article.up:nth-child(3) > h4:nth-child(1) > a:nth-child(2),
+    article.up:nth-child(4) > h4:nth-child(1) > a:nth-child(2),
+    article.up:nth-child(5) > h4:nth-child(1) > a:nth-child(2) {
+      display: none;
+    }
+    
     /* Hide backgrounds for service status sections */
     section h4,
     section h4 a.svelte-fqsq6s,
@@ -159,8 +168,8 @@ status-website:
     }
 
     /* Hide form.f elements */
-    .form.f {
-      display: none;
+    div.f, form.f {
+      display: none !important;
     }
     </style>
 
