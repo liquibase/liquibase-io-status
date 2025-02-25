@@ -130,12 +130,6 @@ status-website:
       background: #A9A9A9 !important;
     }
 
-    /* Hide specified article elements completely */
-    article.up:nth-child(1),
-    article.link:nth-child(2) {
-      display: none;
-    }
-
     /* Hide specified div elements */
     article.up:nth-child(1) > div:nth-child(2),
     article.up:nth-child(1) > div:nth-child(3),
@@ -148,6 +142,20 @@ status-website:
     article.up:nth-child(5) > div:nth-child(2),
     article.up:nth-child(5) > div:nth-child(3) {
       display: none;
+    }
+    
+    /* Hide backgrounds for service status sections */
+    section h4,
+    section h4 a.svelte-fqsq6s,
+    section div .data.svelte-fqsq6s,
+    section div {
+      background: transparent !important;
+    }
+    
+    /* Remove any potential background from parent containers */
+    section.live-status article,
+    section.live-status article div {
+      background: transparent !important;
     }
     </style>
 
