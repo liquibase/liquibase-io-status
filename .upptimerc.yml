@@ -143,14 +143,16 @@ status-website:
     article.up:nth-child(5) > div:nth-child(3) {
       display: none;
     }
-    
-    /* Hide links in h4 elements */
+    /* Make h4 links not clickable */
     article.up:nth-child(1) > h4:nth-child(1) > a:nth-child(2),
     article.link:nth-child(2) > h4:nth-child(1) > a:nth-child(2),
     article.up:nth-child(3) > h4:nth-child(1) > a:nth-child(2),
     article.up:nth-child(4) > h4:nth-child(1) > a:nth-child(2),
     article.up:nth-child(5) > h4:nth-child(1) > a:nth-child(2) {
-      display: none;
+      pointer-events: none;
+      text-decoration: none;
+      color: inherit;
+      cursor: default;
     }
     
     /* Hide backgrounds for service status sections */
