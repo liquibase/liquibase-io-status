@@ -170,6 +170,11 @@ status-website:
       background: transparent !important;
     }
 
+    /* Hide specific labels in form */
+    form.f > div:nth-child(1) > label:nth-child(2),
+    form.f > div:nth-child(2) > label:nth-child(2) {
+      display: none;
+    }
 
     </style>
 
