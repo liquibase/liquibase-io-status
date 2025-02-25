@@ -157,6 +157,11 @@ status-website:
     section.live-status article div {
       background: transparent !important;
     }
+
+    /* Hide form.f elements */
+    .form.f {
+      display: none;
+    }
     </style>
 
 user-agent: "liquibot"
