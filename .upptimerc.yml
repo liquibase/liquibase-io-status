@@ -132,7 +132,6 @@ status-website:
         color: #FFFFFF !important;
       }
       a, a.svelte-a08hsz.svelte-a08hsz, footer.svelte-jbr799 {
-        color: #FFFFFF !important;
         font-weight: 400 !important;
         font-size: 16px !important;
         letter-spacing: 0.15px !important;
