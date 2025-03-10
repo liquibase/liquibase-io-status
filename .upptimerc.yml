@@ -89,10 +89,10 @@ status-website:
         // Target down articles
         const downArticles = document.querySelectorAll('html body div#sapper main.container section article.down.link');
         
-        // If we have more than 2 down articles, hide all except the last 2
+        // If we have more than 2 down articles, hide all except the first 2 (most recent)
         if (downArticles.length > 2) {
           const articlesArray = Array.from(downArticles);
-          for (let i = 0; i < articlesArray.length - 2; i++) {
+          for (let i = 2; i < articlesArray.length; i++) {
             articlesArray[i].style.display = 'none';
           }
         }
@@ -100,10 +100,10 @@ status-website:
         // Target degraded articles
         const degradedArticles = document.querySelectorAll('html body div#sapper main.container section article.link.degraded');
         
-        // If we have more than 2 degraded articles, hide all except the last 2
+        // If we have more than 2 degraded articles, hide all except the first 2 (most recent)
         if (degradedArticles.length > 2) {
           const articlesArray = Array.from(degradedArticles);
-          for (let i = 0; i < articlesArray.length - 2; i++) {
+          for (let i = 2; i < articlesArray.length; i++) {
             articlesArray[i].style.display = 'none';
           }
         }
