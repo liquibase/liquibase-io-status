@@ -131,6 +131,15 @@ status-website:
         font-weight: bold !important;
         color: #000000DE !important;
       }
+      a.svelte-a08hsz.svelte-a08hsz {
+        color: #000000DE !important;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0.15px;
+        font-family: Inter, sans-serif;
+        line-height: 1.5;
+        width: 100%;
+      }
       nav.svelte-a08hsz.svelte-a08hsz {
         background: #008284 !important;
       }
