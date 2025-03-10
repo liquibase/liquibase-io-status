@@ -135,6 +135,32 @@ status-website:
         });
       }
 
+      function setupTimeSelector() {
+            // Wait for the form to be available
+            const checkForm = setInterval(() => {
+              const form = document.querySelector('form.f.r');
+              if (form) {
+                clearInterval(checkForm);
+                
+                // Select the 24h (day) option
+                const dayOption = document.getElementById('data_day');
+                if (dayOption) {
+                  dayOption.checked = true;
+                  
+                  // Trigger a change event to update graphs
+                  const event = new Event('change', {
+                    bubbles: true,
+                    cancelable: true
+                  });
+                  dayOption.dispatchEvent(event);
+                }
+                
+                // Add a class to the form to trigger our CSS hiding other options
+                form.classList.add('day-only');
+              }
+            }, 100);
+          }
+    
       function removeCheckIcon() {
         // Find all articles with "up" class
         const upArticles = document.querySelectorAll('article.up');
@@ -209,6 +235,7 @@ status-website:
         replaceIncidentsWithEvents();
         limitEvents();
         removeCheckIcon();
+        setupTimeSelector();
 
         // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
@@ -231,6 +258,7 @@ status-website:
             replaceIncidentsWithEvents();
             limitEvents();
             removeCheckIcon();
+            setupTimeSelector();
           }
         });
 
@@ -268,13 +296,19 @@ status-website:
 
       // Handle page transitions in SPA
       window.addEventListener('popstate', () => {
-        setTimeout(replaceIncidentsWithEvents, 100);
+        setTimeout(() => {
+          replaceIncidentsWithEvents();
+          setupTimeSelector(); // Add our new function
+        }, 100);
       });
 
       // Also handle clicks that might trigger SPA navigation
       document.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' || e.target.closest('a')) {
-          setTimeout(replaceIncidentsWithEvents, 100);
+          setTimeout(() => {
+            replaceIncidentsWithEvents();
+            setupTimeSelector(); // Add our new function
+          }, 100);
         }
       });
     })();
