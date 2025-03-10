@@ -46,89 +46,158 @@ status-website:
   introMessage: "Monitor availability and performance of Liquibase IO"
   js: |
     (function() {
+      // Track whether replacements have been applied
+      let replacementsApplied = false;
+      
       function addPastIncidentsId() {
-        const h2Elements = document.querySelectorAll('h2.svelte-18y4uo2');
+        const h2Elements = document.querySelectorAll('h2');
         for (const h2 of h2Elements) {
-          if (h2.textContent === 'Past Incidents') {
+          if (h2.textContent === 'Past Incidents' || h2.textContent === 'Past Events') {
             h2.id = 'history';
-            break;
+            if (h2.textContent === 'Past Incidents') {
+              h2.textContent = 'Past Events';
+            }
           }
         }
       }
-
+  
       function convertDatesToUTC() {
-        requestAnimationFrame(() => {
-          // Convert dates in dd elements
-          const dateElements = document.querySelectorAll('dd');
-          dateElements.forEach(el => {
-            if (el.innerText.includes('/')) {
-              const date = new Date(el.innerText);
-              el.innerText = date.toUTCString().replace('GMT', 'UTC');
+        // Convert dates in dd elements
+        const dateElements = document.querySelectorAll('dd');
+        dateElements.forEach(el => {
+          if (el.innerText.includes('/')) {
+            const date = new Date(el.innerText);
+            el.innerText = date.toUTCString().replace('GMT', 'UTC');
+          }
+        });
+  
+        // Convert dates in incident headers
+        const incidentDivs = document.querySelectorAll('div.f div');
+        incidentDivs.forEach(div => {
+          const text = div.innerText;
+          if (text.includes('Opened at')) {
+            const dateStr = text.match(/Opened at (.*?) with/)?.[1];
+            if (dateStr) {
+              const date = new Date(dateStr);
+              div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
             }
-          });
-
-          // Convert dates in incident headers
-          const incidentDivs = document.querySelectorAll('div.f div');
-          incidentDivs.forEach(div => {
-            const text = div.innerText;
-            if (text.includes('Opened at')) {
-              const dateStr = text.match(/Opened at (.*?) with/)?.[1];
-              if (dateStr) {
-                const date = new Date(dateStr);
-                div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
-              }
-            }
-          });
+          }
         });
       }
       
       function replaceIncidentsWithEvents() {
-        // Find all links and text containing 'Incident'
-        const elements = document.querySelectorAll('a, div');
+        replacementsApplied = false;
         
+        // Replace in all text content
+        const walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let textNode;
+        let hasReplaced = false;
+        
+        while (textNode = walker.nextNode()) {
+          if (textNode.nodeValue.includes('Incident')) {
+            textNode.nodeValue = textNode.nodeValue.replace(/Incident/g, 'Event');
+            hasReplaced = true;
+          }
+        }
+        
+        // Replace in attributes (especially href)
+        const elements = document.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
         elements.forEach(element => {
-          if (element.innerHTML.includes('Incident')) {
-            element.innerHTML = element.innerHTML.replace(/Incident/g, 'Event');
-          }
-          
-          // Also handle text nodes directly
-          element.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.includes('Incident')) {
-              node.nodeValue = node.nodeValue.replace(/Incident/g, 'Event');
+          if (element.href) {
+            // We keep the URL the same to not break functionality
+            // but change the visible text
+            if (element.textContent.includes('Incident')) {
+              element.textContent = element.textContent.replace(/Incident/g, 'Event');
+              hasReplaced = true;
             }
-          });
+          }
         });
         
-        // Also replace the "Past Incidents" header text if it exists
-        const h2Elements = document.querySelectorAll('h2');
-        h2Elements.forEach(h2 => {
-          if (h2.textContent === 'Past Incidents') {
-            h2.textContent = 'Past Events';
-          }
-        });
+        if (hasReplaced) {
+          replacementsApplied = true;
+        }
+        
+        return hasReplaced;
       }
-
-      // Wait for document load without blocking
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initObserver);
-      } else {
-        initObserver();
-      }
-
-      function initObserver() {
+  
+      // Initial run and setup observer
+      function initializePageModifications() {
+        // Perform initial modifications
         convertDatesToUTC();
         addPastIncidentsId();
         replaceIncidentsWithEvents();
+        
+        // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
-          convertDatesToUTC();
-          addPastIncidentsId();
+          let needsUpdate = false;
+          
+          // Check if we need updates based on mutations
+          for (const mutation of mutations) {
+            if (mutation.type === 'childList' || 
+                (mutation.type === 'characterData' && 
+                 mutation.target.nodeValue && 
+                 mutation.target.nodeValue.includes('Incident'))) {
+              needsUpdate = true;
+              break;
+            }
+          }
+          
+          if (needsUpdate || !replacementsApplied) {
+            convertDatesToUTC();
+            addPastIncidentsId();
+            replaceIncidentsWithEvents();
+          }
         });
+        
         observer.observe(document.body, {
           childList: true,
           subtree: true,
-          characterData: true
+          characterData: true,
+          attributes: true,
+          attributeFilter: ['href', 'textContent', 'innerText']
         });
+        
+        // Backup polling mechanism
+        const backupInterval = setInterval(() => {
+          if (document.body.innerHTML.includes('Incident')) {
+            replaceIncidentsWithEvents();
+          } else if (replacementsApplied) {
+            // If we've done replacements and no more "Incident" text exists,
+            // we can stop the backup interval
+            clearInterval(backupInterval);
+          }
+        }, 1000); // Check every second
+        
+        // Stop backup polling after 30 seconds to save resources
+        setTimeout(() => {
+          clearInterval(backupInterval);
+        }, 30000);
       }
+  
+      // Wait for document load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializePageModifications);
+      } else {
+        initializePageModifications();
+      }
+      
+      // Handle page transitions in SPA
+      window.addEventListener('popstate', () => {
+        setTimeout(replaceIncidentsWithEvents, 100);
+      });
+      
+      // Also handle clicks that might trigger SPA navigation
+      document.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A' || e.target.closest('a')) {
+          setTimeout(replaceIncidentsWithEvents, 100);
+        }
+      });
     })();
   customHeadHtml: |
     <style>
