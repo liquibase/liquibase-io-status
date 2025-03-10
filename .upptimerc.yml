@@ -85,16 +85,24 @@ status-website:
         });
       }
       
-      function limitDownArticles() {
-        // Target the specific elements using the exact path
+      function limitEvents() {
+        // Target down articles
         const downArticles = document.querySelectorAll('html body div#sapper main.container section article.down.link');
         
-        // If we have more than 2 articles, hide all except the last 2
+        // If we have more than 2 down articles, hide all except the last 2
         if (downArticles.length > 2) {
-          // Convert to array to use array methods
           const articlesArray = Array.from(downArticles);
-          
-          // Hide all except the last 2
+          for (let i = 0; i < articlesArray.length - 2; i++) {
+            articlesArray[i].style.display = 'none';
+          }
+        }
+        
+        // Target degraded articles
+        const degradedArticles = document.querySelectorAll('html body div#sapper main.container section article.link.degraded');
+        
+        // If we have more than 2 degraded articles, hide all except the last 2
+        if (degradedArticles.length > 2) {
+          const articlesArray = Array.from(degradedArticles);
           for (let i = 0; i < articlesArray.length - 2; i++) {
             articlesArray[i].style.display = 'none';
           }
@@ -161,7 +169,7 @@ status-website:
         convertDatesToUTC();
         addPastIncidentsId();
         replaceIncidentsWithEvents();
-        limitDownArticles();
+        limitEvents();
         
         // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
@@ -182,7 +190,7 @@ status-website:
             convertDatesToUTC();
             addPastIncidentsId();
             replaceIncidentsWithEvents();
-            limitDownArticles();
+            limitEvents();
           }
         });
         
