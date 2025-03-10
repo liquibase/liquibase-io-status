@@ -144,8 +144,12 @@ status-website:
         background: #008284 !important;
       }
       article.up {
-        border-left-color: #314D07 !important;
-        color: #558112 !important;
+        border-left-color: #8C111E !important;
+        color: #E22237 !important;
+      }
+      section article.down, section.live-status article.down, article.down.down-active {
+        border-color: var(--down-border-left-color) !important;
+        background: var(--down-background-color) !important;
       }
       /* io style */
     
