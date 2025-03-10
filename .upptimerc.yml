@@ -33,7 +33,7 @@ status-website:
   navbar:
     - title: History
       href: /#history
-  theme: dark
+  theme: light
   favicon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.png
   faviconSvg: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
@@ -105,7 +105,8 @@ status-website:
     })();
   customHeadHtml: |
     <style>
-      dd { font-family: monospace; }
+      dd { font-family: Inter, sans-serif; !important }
+      body { font-family: Inter, sans-serif; !important }
       html {
         scroll-padding-top: 70px; /* Adjust based on your header height */
       }
