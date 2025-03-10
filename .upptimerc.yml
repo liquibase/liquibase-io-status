@@ -143,12 +143,11 @@ status-website:
       nav.svelte-a08hsz.svelte-a08hsz {
         background: #008284 !important;
       }
-      article.up {
+      article.up, section.live-status article.up {
         border-left-color: #8C111E !important;
-        color: #FFFFFF !important;
         background: #20bf6b !important;
       }
-      article.down, section.live-status article.down, article.down.down-active {
+      section article.down, article.down, section.live-status article.down, article.down.down-active {
         border-color: var(--down-border-left-color) !important;
         background: var(--down-background-color) !important;
       }
