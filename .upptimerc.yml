@@ -40,7 +40,7 @@ status-website:
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.liquibase.io
   # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_white.svg
+  logoUrl: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_teal.svg
   name: Status
   introTitle: "Current Status"
   introMessage: "Monitor availability and performance of Liquibase IO"
