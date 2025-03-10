@@ -135,6 +135,18 @@ status-website:
         });
       }
 
+      function removeCheckIcon() {
+        // Find all articles with "up" class
+        const upArticles = document.querySelectorAll('article.up');
+        
+        // For each "up" article, remove the check mark emoji if it exists
+        upArticles.forEach(article => {
+          if (article.innerHTML.includes('✅')) {
+            article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
+          }
+        });
+      }
+
       function replaceIncidentsWithEvents() {
         replacementsApplied = false;
         let hasReplaced = false;
@@ -196,6 +208,7 @@ status-website:
         addPastIncidentsId();
         replaceIncidentsWithEvents();
         limitEvents();
+        removeCheckIcon();
 
         // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
@@ -217,6 +230,7 @@ status-website:
             addPastIncidentsId();
             replaceIncidentsWithEvents();
             limitEvents();
+            removeCheckIcon();
           }
         });
 
