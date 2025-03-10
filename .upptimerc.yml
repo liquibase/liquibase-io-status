@@ -48,7 +48,7 @@ status-website:
     (function() {
       // Track whether replacements have been applied
       let replacementsApplied = false;
-      
+
       function addPastIncidentsId() {
         const h2Elements = document.querySelectorAll('h2');
         for (const h2 of h2Elements) {
@@ -60,7 +60,7 @@ status-website:
           }
         }
       }
-  
+
       function convertDatesToUTC() {
         // Convert dates in dd elements
         const dateElements = document.querySelectorAll('dd');
@@ -70,7 +70,7 @@ status-website:
             el.innerText = date.toUTCString().replace('GMT', 'UTC');
           }
         });
-  
+
         // Convert dates in incident headers
         const incidentDivs = document.querySelectorAll('div.f div');
         incidentDivs.forEach(div => {
@@ -84,19 +84,19 @@ status-website:
           }
         });
       }
-      
+
       function limitEvents() {
         // Process each type of article separately
         processArticleType('html body div#sapper main.container section article.down.link');
         processArticleType('html body div#sapper main.container section article.link.degraded');
-        
+
         // Then clean up orphaned H3 headers
         cleanupOrphanedHeaders();
       }
-      
+
       function processArticleType(selector) {
         const articles = document.querySelectorAll(selector);
-        
+
         // If we have more than 2 articles, hide all except the first 2 (most recent)
         if (articles.length > 2) {
           const articlesArray = Array.from(articles);
@@ -106,15 +106,15 @@ status-website:
           }
         }
       }
-      
+
       function cleanupOrphanedHeaders() {
         // Get all H3 date headers
         const dateHeaders = document.querySelectorAll('html body div#sapper main.container section h3');
-        
+
         dateHeaders.forEach(header => {
           let nextElement = header.nextElementSibling;
           let hasVisibleArticle = false;
-          
+
           // Check all elements until the next header or until no more siblings
           while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
             // If it's an article and it's visible, mark this header as having visible content
@@ -124,7 +124,7 @@ status-website:
             }
             nextElement = nextElement.nextElementSibling;
           }
-          
+
           // If no visible articles were found for this date header, hide it
           if (!hasVisibleArticle) {
             header.style.display = 'none';
@@ -134,7 +134,7 @@ status-website:
           }
         });
       }
-      
+
       function replaceIncidentsWithEvents() {
         replacementsApplied = false;
         let hasReplaced = false;
@@ -188,7 +188,7 @@ status-website:
 
         return hasReplaced;
       }
-  
+
       // Initial run and setup observer
       function initializePageModifications() {
         // Perform initial modifications
@@ -196,22 +196,22 @@ status-website:
         addPastIncidentsId();
         replaceIncidentsWithEvents();
         limitEvents();
-        
+
         // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
           let needsUpdate = false;
-          
+
           // Check if we need updates based on mutations
           for (const mutation of mutations) {
-            if (mutation.type === 'childList' || 
-                (mutation.type === 'characterData' && 
-                 mutation.target.nodeValue && 
+            if (mutation.type === 'childList' ||
+                (mutation.type === 'characterData' &&
+                 mutation.target.nodeValue &&
                  mutation.target.nodeValue.includes('Incident'))) {
               needsUpdate = true;
               break;
             }
           }
-          
+
           if (needsUpdate || !replacementsApplied) {
             convertDatesToUTC();
             addPastIncidentsId();
@@ -219,7 +219,7 @@ status-website:
             limitEvents();
           }
         });
-        
+
         observer.observe(document.body, {
           childList: true,
           subtree: true,
@@ -227,7 +227,7 @@ status-website:
           attributes: true,
           attributeFilter: ['href', 'textContent', 'innerText']
         });
-        
+
         // Backup polling mechanism
         const backupInterval = setInterval(() => {
           if (document.body.innerHTML.includes('Incident')) {
@@ -238,25 +238,25 @@ status-website:
             clearInterval(backupInterval);
           }
         }, 1000); // Check every second
-        
+
         // Stop backup polling after 30 seconds to save resources
         setTimeout(() => {
           clearInterval(backupInterval);
         }, 30000);
       }
-  
+
       // Wait for document load
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializePageModifications);
       } else {
         initializePageModifications();
       }
-      
+
       // Handle page transitions in SPA
       window.addEventListener('popstate', () => {
         setTimeout(replaceIncidentsWithEvents, 100);
       });
-      
+
       // Also handle clicks that might trigger SPA navigation
       document.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' || e.target.closest('a')) {
@@ -266,7 +266,7 @@ status-website:
     })();
   customHeadHtml: |
     <style>
-    
+
       /* io style */
       body, dd, h1, h2, h3, h4, h5, h6, a, footer.svelte-jbr799, .logo.svelte-a08hsz.svelte-a08hsz, a.svelte-a08hsz.svelte-a08hsz {
         font-family: Inter, sans-serif !important;
@@ -309,41 +309,41 @@ status-website:
         background: #20bf6b !important;
       }
 
-      article.down, section.live-status article.down, article.down.down-active, 
+      article.down, section.live-status article.down, article.down.down-active,
       html body div#sapper main.container section article.down.link {
         border-color: #8c111e !important;
-        background: #e22237 !important;
+        background: #F75C65 !important;
       }
       /* io style */
-    
+
       /* Add checkmark before the img icon in up articles */
-      article.up.link h4::before {
-        content: "✅ ";
+      article.up.link h4::after {
+        content: "✅";
         display: inline-block;
         margin-right: 5px;
         font-size: 16px;
       }
-      
+
       /* Add X mark before the img icon in down articles */
-      article.down.link h4::before {
+      article.down.link h4::after {
         content: "❗";
         display: inline-block;
         margin-right: 5px;
         font-size: 16px;
       }
-      
+
       /* Add warning mark before the img icon in degraded articles */
-      article.degraded.link h4::before {
-        content: "⚠️ ";
+      article.degraded.link h4::after {
+        content: "⚠️";
         display: inline-block;
         margin-right: 5px;
         font-size: 16px;
       }
-    
+
       .logo > div:nth-child(2) {
         padding-left: 2.5em;
       }
-    
+
       html {
         scroll-padding-top: 70px; /* Adjust based on your header height */
       }
