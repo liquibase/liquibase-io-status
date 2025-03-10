@@ -316,6 +316,30 @@ status-website:
       }
       /* io style */
     
+      /* Add checkmark before the img icon in up articles */
+      article.up.link h4::before {
+        content: "✅ ";
+        display: inline-block;
+        margin-right: 5px;
+        font-size: 16px;
+      }
+      
+      /* Add X mark before the img icon in down articles */
+      article.down.link h4::before {
+        content: "❌ ";
+        display: inline-block;
+        margin-right: 5px;
+        font-size: 16px;
+      }
+      
+      /* Add warning mark before the img icon in degraded articles */
+      article.degraded.link h4::before {
+        content: "⚠️ ";
+        display: inline-block;
+        margin-right: 5px;
+        font-size: 16px;
+      }
+    
       html {
         scroll-padding-top: 70px; /* Adjust based on your header height */
       }
