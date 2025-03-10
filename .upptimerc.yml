@@ -326,7 +326,7 @@ status-website:
       
       /* Add X mark before the img icon in down articles */
       article.down.link h4::before {
-        content: "❌ ";
+        content: "❗";
         display: inline-block;
         margin-right: 5px;
         font-size: 16px;
