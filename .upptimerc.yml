@@ -86,27 +86,53 @@ status-website:
       }
       
       function limitEvents() {
-        // Target down articles
-        const downArticles = document.querySelectorAll('html body div#sapper main.container section article.down.link');
+        // Process each type of article separately
+        processArticleType('html body div#sapper main.container section article.down.link');
+        processArticleType('html body div#sapper main.container section article.link.degraded');
         
-        // If we have more than 2 down articles, hide all except the first 2 (most recent)
-        if (downArticles.length > 2) {
-          const articlesArray = Array.from(downArticles);
+        // Then clean up orphaned H3 headers
+        cleanupOrphanedHeaders();
+      }
+      
+      function processArticleType(selector) {
+        const articles = document.querySelectorAll(selector);
+        
+        // If we have more than 2 articles, hide all except the first 2 (most recent)
+        if (articles.length > 2) {
+          const articlesArray = Array.from(articles);
+          // Keep first 2 visible
           for (let i = 2; i < articlesArray.length; i++) {
             articlesArray[i].style.display = 'none';
           }
         }
+      }
+      
+      function cleanupOrphanedHeaders() {
+        // Get all H3 date headers
+        const dateHeaders = document.querySelectorAll('html body div#sapper main.container section h3');
         
-        // Target degraded articles
-        const degradedArticles = document.querySelectorAll('html body div#sapper main.container section article.link.degraded');
-        
-        // If we have more than 2 degraded articles, hide all except the first 2 (most recent)
-        if (degradedArticles.length > 2) {
-          const articlesArray = Array.from(degradedArticles);
-          for (let i = 2; i < articlesArray.length; i++) {
-            articlesArray[i].style.display = 'none';
+        dateHeaders.forEach(header => {
+          let nextElement = header.nextElementSibling;
+          let hasVisibleArticle = false;
+          
+          // Check all elements until the next header or until no more siblings
+          while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
+            // If it's an article and it's visible, mark this header as having visible content
+            if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
+              hasVisibleArticle = true;
+              break;
+            }
+            nextElement = nextElement.nextElementSibling;
           }
-        }
+          
+          // If no visible articles were found for this date header, hide it
+          if (!hasVisibleArticle) {
+            header.style.display = 'none';
+          } else {
+            // Make sure the header is visible if it has visible articles
+            header.style.display = '';
+          }
+        });
       }
       
       function replaceIncidentsWithEvents() {
