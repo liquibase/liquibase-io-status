@@ -439,7 +439,6 @@ status-website:
     form.f > div:nth-child(3) > label:nth-child(2),
     form.f > div:nth-child(4) > label:nth-child(2),
     form.f > div:nth-child(5) > label:nth-child(2) {
-      display: none;
     }
 
     </style>
