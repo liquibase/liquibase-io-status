@@ -87,42 +87,55 @@ status-website:
       
       function replaceIncidentsWithEvents() {
         replacementsApplied = false;
-        
-        // Replace in all text content
+        let hasReplaced = false;
+
+        // Find the specific section containing h2 with class svelte-18y4uo2
+        const targetH2 = document.querySelector('h2.svelte-18y4uo2');
+        if (!targetH2) {
+          return false;
+        }
+
+        // Find the parent section that contains the h2
+        const parentSection = targetH2.closest('section');
+        if (!parentSection) {
+          return false;
+        }
+
+        // Replace text nodes only within this section
         const walker = document.createTreeWalker(
-          document.body,
+          parentSection,
           NodeFilter.SHOW_TEXT,
           null,
           false
         );
-        
+
         let textNode;
-        let hasReplaced = false;
-        
         while (textNode = walker.nextNode()) {
           if (textNode.nodeValue.includes('Incident')) {
             textNode.nodeValue = textNode.nodeValue.replace(/Incident/g, 'Event');
             hasReplaced = true;
           }
         }
-        
-        // Replace in attributes (especially href)
-        const elements = document.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
+
+        // Replace in link text only within this section
+        const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
         elements.forEach(element => {
-          if (element.href) {
-            // We keep the URL the same to not break functionality
-            // but change the visible text
-            if (element.textContent.includes('Incident')) {
-              element.textContent = element.textContent.replace(/Incident/g, 'Event');
-              hasReplaced = true;
-            }
+          if (element.href && element.textContent.includes('Incident')) {
+            element.textContent = element.textContent.replace(/Incident/g, 'Event');
+            hasReplaced = true;
           }
         });
-        
+
+        // Also replace the h2 text if it contains "Incidents"
+        if (targetH2.textContent === 'Past Incidents') {
+          targetH2.textContent = 'Past Events';
+          hasReplaced = true;
+        }
+
         if (hasReplaced) {
           replacementsApplied = true;
         }
-        
+
         return hasReplaced;
       }
   
