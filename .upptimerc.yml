@@ -143,12 +143,12 @@ status-website:
         background: #008284 !important;
       }
       article.up, section.live-status article.up {
-        border-left-color: #8C111E !important;
+        border-left-color: #004E50 !important;
         background: #20bf6b !important;
       }
-      section article.down, article.down, section.live-status article.down, article.down.down-active {
-        border-color: var(--down-border-left-color) !important;
-        background: var(--down-background-color) !important;
+      article.down, section.live-status article.down, article.down.down-active {
+        border-color: #8c111e !important;
+        background: #e22237 !important;
       }
       /* io style */
     
