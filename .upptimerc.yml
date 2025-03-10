@@ -316,27 +316,38 @@ status-website:
       }
       /* io style */
 
-      /* Add checkmark after the service name in up articles in live-status section */
-      section.live-status.svelte-fqsq6s article.up.link h4::after {
+      /* Position the articles relatively to allow absolute positioning of status icons */
+      section.live-status.svelte-fqsq6s article.link {
+        position: relative;
+      }
+
+      /* Add checkmark to the far right of up articles in live-status section */
+      section.live-status.svelte-fqsq6s article.up.link::after {
         content: "✅";
-        display: inline-block;
-        margin-left: 5px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 16px;
       }
 
-      /* Add alert mark after the service name in down articles in live-status section */
-      section.live-status.svelte-fqsq6s article.down.link h4::after {
+      /* Add alert mark to the far right of down articles in live-status section */
+      section.live-status.svelte-fqsq6s article.down.link::after {
         content: "❗";
-        display: inline-block;
-        margin-left: 5px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 16px;
       }
 
-      /* Add warning mark after the service name in degraded articles in live-status section */
-      section.live-status.svelte-fqsq6s article.degraded.link h4::after {
+      /* Add warning mark to the far right of degraded articles in live-status section */
+      section.live-status.svelte-fqsq6s article.degraded.link::after {
         content: "⚠️";
-        display: inline-block;
-        margin-left: 5px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 16px;
       }
 
