@@ -85,6 +85,22 @@ status-website:
         });
       }
       
+      function limitDownArticles() {
+        // Target the specific elements using the exact path
+        const downArticles = document.querySelectorAll('html body div#sapper main.container section article.down.link');
+        
+        // If we have more than 2 articles, hide all except the last 2
+        if (downArticles.length > 2) {
+          // Convert to array to use array methods
+          const articlesArray = Array.from(downArticles);
+          
+          // Hide all except the last 2
+          for (let i = 0; i < articlesArray.length - 2; i++) {
+            articlesArray[i].style.display = 'none';
+          }
+        }
+      }
+      
       function replaceIncidentsWithEvents() {
         replacementsApplied = false;
         let hasReplaced = false;
@@ -145,6 +161,7 @@ status-website:
         convertDatesToUTC();
         addPastIncidentsId();
         replaceIncidentsWithEvents();
+        limitDownArticles();
         
         // Set up mutation observer
         const observer = new MutationObserver((mutations) => {
@@ -165,6 +182,7 @@ status-website:
             convertDatesToUTC();
             addPastIncidentsId();
             replaceIncidentsWithEvents();
+            limitDownArticles();
           }
         });
         
