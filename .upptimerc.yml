@@ -110,13 +110,17 @@ status-website:
       dd { font-family: Inter, sans-serif; !important }
       body { font-family: Inter, sans-serif; !important }
       h1 { 
-      font-family: Inter, sans-serif !important;
-      font-weight: 400 !important;
-      font-size: 34px !important;
+        font-family: Inter, sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 34px !important;
+        letter-spacing: 0.25px !important;
+        line-height: 1.235 !important;
       }
       h2, h3, h4, h5, h6 { 
-      font-family: Inter, sans-serif !important;
-      font-weight: 400 !important;
+        font-family: Inter, sans-serif !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.25px !important;
+        line-height: 1.235 !important;
       }
       /* io style */
     
