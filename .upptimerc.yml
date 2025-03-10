@@ -132,7 +132,6 @@ status-website:
       }
 
       .logo.svelte-a08hsz.svelte-a08hsz, a.svelte-a08hsz.svelte-a08hsz {
-        font-weight: bold !important;
         color: #FFFFFF !important;
       }
 
