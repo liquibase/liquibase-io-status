@@ -151,6 +151,15 @@ status-website:
         border-color: var(--down-border-left-color) !important;
         background: var(--down-background-color) !important;
       }
+      a {
+        color: #FFFFFF !important;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        letter-spacing: 0.15px !important;
+        font-family: Inter, sans-serif !important;
+        line-height: 1.5 !important;
+        width: 100% !important;
+      }
       /* io style */
     
       html {
