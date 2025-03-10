@@ -146,7 +146,7 @@ status-website:
         border-left-color: #004E50 !important;
         background: #20bf6b !important;
       }
-      article.down, section.live-status article.down, article.down.down-active {
+      article.down, section.live-status article.down, article.down.down-active, html body div#sapper main.container section article.down.link {
         border-color: #8c111e !important;
         background: #e22237 !important;
       }
