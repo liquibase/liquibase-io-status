@@ -133,17 +133,25 @@ status-website:
       }
       a.svelte-a08hsz.svelte-a08hsz {
         color: #FFFFFF !important;
-        font-weight: 400;
-        font-size: 16px;
-        letter-spacing: 0.15px;
-        font-family: Inter, sans-serif;
-        line-height: 1.5;
-        width: 100%;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        letter-spacing: 0.15px !important;
+        font-family: Inter, sans-serif !important;
+        line-height: 1.5 !important;
+        width: 100% !important;
       }
       nav.svelte-a08hsz.svelte-a08hsz {
         background: #008284 !important;
       }
-      
+      article.up {
+        border-left-color: #8C111E !important;
+        color: #FFFFFF !important;
+        background: #20bf6b !important;
+      }
+      article.down, section.live-status article.down, article.down.down-active {
+        border-color: var(--down-border-left-color) !important;
+        background: var(--down-background-color) !important;
+      }
       /* io style */
     
       html {
