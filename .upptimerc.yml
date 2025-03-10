@@ -98,6 +98,15 @@ status-website:
             }
           });
         });
+        
+        // Also replace the "Past Incidents" header text if it exists
+        const h2Elements = document.querySelectorAll('h2');
+        h2Elements.forEach(h2 => {
+          if (h2.textContent === 'Past Incidents') {
+            h2.textContent = 'Past Events';
+          }
+        });
+      }
 
       // Wait for document load without blocking
       if (document.readyState === 'loading') {
