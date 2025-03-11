@@ -6,11 +6,11 @@ sites:
   - name: Liquibase IO API
     url: $LIQUIBASE_IO_API_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
-    maxResponseTime: 7000
+    maxResponseTime: 10000
   - name: Liquibase IO WEB
     url: $LIQUIBASE_IO_MAIN_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
-    maxResponseTime: 7000
+    maxResponseTime: 10000
   - name: Liquibase IO Runner
     url: $LIQUIBASE_IO_RUNNER_URL
     icon: https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg
