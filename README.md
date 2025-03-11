@@ -1,4 +1,4 @@
-# [📈 Live Status](https://$LIQUIBASE_IO_CNAME): <!--live status--> **🟩 All systems operational**
+# [📈 Live Status](https://status.liquibase.io): <!--live status--> **🟩 All systems operational**
 
 This repository contains the open-source uptime monitor and status page for [Liquibase](https://www.liquibase.org), powered by [Upptime](https://github.com/upptime/upptime).
 
@@ -24,7 +24,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 
 <!--end: status pages-->
 
-[**Visit our status website →**](https://$LIQUIBASE_IO_CNAME)
+[**Visit our status website →**](https://status.liquibase.io)
 
 ## 📄 License
 
