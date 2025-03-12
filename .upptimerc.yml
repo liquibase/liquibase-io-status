@@ -165,6 +165,61 @@ status-website:
           console.warn('Error limiting scheduled events', e);
         }
       }
+      
+      function limitPastEvents() {
+        try {
+          // Find the Past Events section
+          const pastEventsH2 = Array.from(safeQuerySelectorAll('h2')).find(
+            h2 => h2.textContent === 'Past Events' || h2.textContent === 'Past Incidents'
+          );
+          
+          if (pastEventsH2) {
+            const section = pastEventsH2.closest('section');
+            if (section) {
+              // Find all date groups
+              const dateHeaders = section.querySelectorAll('h3');
+              
+              let totalShown = 0;
+              const maxToShow = 2; // Show only the first 2 events
+              
+              dateHeaders.forEach(header => {
+                // Get articles under this date header
+                let articles = [];
+                let next = header.nextElementSibling;
+                
+                while (next && next.tagName !== 'H3') {
+                  if (next.tagName === 'ARTICLE') {
+                    articles.push(next);
+                  }
+                  next = next.nextElementSibling;
+                }
+                
+                // Process articles in this date group
+                articles.forEach(article => {
+                  if (totalShown < maxToShow) {
+                    article.style.display = '';
+                    totalShown++;
+                  } else {
+                    article.style.display = 'none';
+                  }
+                });
+                
+                // Hide date header if all its articles are hidden
+                const visibleArticles = articles.filter(a => a.style.display !== 'none');
+                if (visibleArticles.length === 0) {
+                  header.style.display = 'none';
+                } else {
+                  header.style.display = '';
+                }
+              });
+              
+              console.log(`Limited past events to ${totalShown} events`);
+            }
+          }
+        } catch(e) {
+          console.warn('Error limiting past events', e);
+        }
+      }
   
       function removeCheckIcon() {
         try {
@@ -326,6 +381,7 @@ status-website:
             addPastIncidentsId();
             replaceIncidentsWithEvents();
             limitScheduledEvents(); // Limit down/degraded events to 2
+            limitPastEvents();
             removeCheckIcon();
             setupTimeSelector();
             ensurePastEventsVisible(); // Make sure past events are visible
@@ -355,6 +411,7 @@ status-website:
                   addPastIncidentsId();
                   replaceIncidentsWithEvents();
                   limitScheduledEvents(); // Limit down/degraded events to 2
+                  limitPastEvents();
                   removeCheckIcon();
                   ensurePastEventsVisible(); // Make sure past events are visible
                 }
@@ -381,6 +438,7 @@ status-website:
             console.log('Running delayed check for past events');
             ensurePastEventsVisible();
             limitScheduledEvents();
+            limitPastEvents();
           }, 2000);
   
           // Another check after page should be fully loaded
@@ -388,6 +446,7 @@ status-website:
             console.log('Running final check for page completeness');
             ensurePastEventsVisible();
             limitScheduledEvents();
+            limitPastEvents();
           }, 5000);
         } catch(e) {
           console.warn('Error initializing page modifications', e);
@@ -409,6 +468,7 @@ status-website:
               console.log('Navigation detected, updating page');
               replaceIncidentsWithEvents();
               limitScheduledEvents(); // Limit down/degraded events to 2
+              limitPastEvents();
               setupTimeSelector();
               ensurePastEventsVisible();
             } catch(e) {
@@ -425,6 +485,7 @@ status-website:
                 console.log('Link click detected, updating page');
                 replaceIncidentsWithEvents();
                 limitScheduledEvents(); // Limit down/degraded events to 2
+                limitPastEvents();
                 setupTimeSelector();
                 ensurePastEventsVisible();
               } catch(e) {
