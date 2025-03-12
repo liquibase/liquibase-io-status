@@ -141,34 +141,28 @@ status-website:
         }
       }
   
-      // Modified to be less aggressive with hiding elements
-      function limitEvents() {
+      // Modified to properly limit events in the current section
+      function limitScheduledEvents() {
         try {
-          // Get the Past Events section
-          const pastEventsH2 = Array.from(safeQuerySelectorAll('h2')).find(
-            h2 => h2.textContent === 'Past Events' || h2.textContent === 'Past Incidents'
-          );
+          // Find all ongoing incidents (down or degraded) in the current section
+          const currentDownEvents = safeQuerySelectorAll('section.live-status article.down.link');
+          const currentDegradedEvents = safeQuerySelectorAll('section.live-status article.degraded.link');
           
-          if (!pastEventsH2) {
-            console.warn('Past Events section not found');
-            return;
+          const scheduledEvents = [...currentDownEvents, ...currentDegradedEvents];
+          if (scheduledEvents.length > 2) {
+            console.log(`Found ${scheduledEvents.length} scheduled events, showing only 2 most recent`);
+            // Sort events by their creation time (if available) or position in DOM
+            // Keep only the 2 most recent
+            for (let i = 2; i < scheduledEvents.length; i++) {
+              if (scheduledEvents[i]) {
+                scheduledEvents[i].style.display = 'none';
+              }
+            }
+          } else {
+            console.log(`Found ${scheduledEvents.length} scheduled events, showing all`);
           }
-          
-          // Find the section that contains past events
-          const pastEventsSection = pastEventsH2.closest('section');
-          if (!pastEventsSection) {
-            console.warn('Past Events container section not found');
-            return;
-          }
-          
-          // Make sure the past events section is visible
-          pastEventsH2.style.display = '';
-          pastEventsSection.style.display = '';
-          
-          // No longer aggressively limiting the number of past events
-          // This was likely causing the issue where past events weren't visible
         } catch(e) {
-          console.warn('Error limiting events', e);
+          console.warn('Error limiting scheduled events', e);
         }
       }
   
@@ -284,7 +278,7 @@ status-website:
         }
       }
   
-      // Function to ensure Past Events section is visible
+      // Function to ensure Past Events section is visible and properly formatted
       function ensurePastEventsVisible() {
         try {
           // Find the Past Events heading
@@ -301,20 +295,20 @@ status-website:
             if (section) {
               section.style.display = '';
               
-              // Make all date headers visible
-              const h3Elements = section.querySelectorAll('h3');
-              h3Elements.forEach(h3 => {
-                h3.style.display = '';
+              // Make sure date headers are visible
+              const dateHeaders = section.querySelectorAll('h3');
+              dateHeaders.forEach(header => {
+                header.style.display = '';
               });
-              
-              // Make all articles (events) visible
+  
+              // Make sure articles under each date are visible
               const articles = section.querySelectorAll('article');
               articles.forEach(article => {
                 article.style.display = '';
               });
+              
+              console.log('Past Events section is now visible with', articles.length, 'events');
             }
-            
-            console.log('Past Events section found and made visible');
           } else {
             console.warn('Past Events section not found');
           }
@@ -331,9 +325,11 @@ status-website:
             convertDatesToUTC();
             addPastIncidentsId();
             replaceIncidentsWithEvents();
+            limitScheduledEvents(); // Limit down/degraded events to 2
             removeCheckIcon();
             setupTimeSelector();
             ensurePastEventsVisible(); // Make sure past events are visible
+            console.log('Initial page modifications complete');
           }, 800); // Give more time for the page to fully render
   
           // Set up mutation observer with error handling
@@ -354,9 +350,11 @@ status-website:
                 }
   
                 if (needsUpdate || !replacementsApplied) {
+                  console.log('DOM changes detected, updating page');
                   convertDatesToUTC();
                   addPastIncidentsId();
                   replaceIncidentsWithEvents();
+                  limitScheduledEvents(); // Limit down/degraded events to 2
                   removeCheckIcon();
                   ensurePastEventsVisible(); // Make sure past events are visible
                 }
@@ -370,26 +368,27 @@ status-website:
               subtree: true,
               characterData: true,
               attributes: true,
-              attributeFilter: ['href', 'textContent', 'innerText', 'style']
+              attributeFilter: ['href', 'textContent', 'innerText', 'style', 'display']
             });
+            
+            console.log('Mutation observer set up');
           } catch(e) {
             console.warn('Error setting up mutation observer', e);
           }
   
           // Additional check after a longer delay to catch slow-loading content
           setTimeout(() => {
+            console.log('Running delayed check for past events');
             ensurePastEventsVisible();
+            limitScheduledEvents();
           }, 2000);
   
-          // Periodically check that past events are visible
-          const visibilityInterval = setInterval(() => {
-            ensurePastEventsVisible();
-          }, 5000); // Check every 5 seconds
-  
-          // Stop the interval after 60 seconds
+          // Another check after page should be fully loaded
           setTimeout(() => {
-            clearInterval(visibilityInterval);
-          }, 60000);
+            console.log('Running final check for page completeness');
+            ensurePastEventsVisible();
+            limitScheduledEvents();
+          }, 5000);
         } catch(e) {
           console.warn('Error initializing page modifications', e);
         }
@@ -407,7 +406,9 @@ status-website:
         window.addEventListener('popstate', () => {
           setTimeout(() => {
             try {
+              console.log('Navigation detected, updating page');
               replaceIncidentsWithEvents();
+              limitScheduledEvents(); // Limit down/degraded events to 2
               setupTimeSelector();
               ensurePastEventsVisible();
             } catch(e) {
@@ -421,7 +422,9 @@ status-website:
           if (e.target.tagName === 'A' || e.target.closest('a')) {
             setTimeout(() => {
               try {
+                console.log('Link click detected, updating page');
                 replaceIncidentsWithEvents();
+                limitScheduledEvents(); // Limit down/degraded events to 2
                 setupTimeSelector();
                 ensurePastEventsVisible();
               } catch(e) {
@@ -430,6 +433,8 @@ status-website:
             }, 800);
           }
         });
+        
+        console.log('Page modification script initialized');
       } catch(e) {
         console.warn('Error setting up event listeners', e);
       }
