@@ -1,296 +1,400 @@
-<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <base href=/ > <link href=manifest.json rel=manifest crossorigin=use-credentials> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');(function(){try{eval("async function x(){}");var main="/client/client.8f7ea64a.js"}catch(e){main="/client/legacy/client.dc18ecf5.js"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@2.0.5.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());</script> <link href=client/client-31a52aa5.css rel=stylesheet><link href=client/createOctokit-a85f76c7.css rel=stylesheet><link href=client/index-b0b6455a.css rel=stylesheet> <title>Status</title><style>.logo.svelte-a08hsz.svelte-a08hsz,a,a.svelte-a08hsz.svelte-a08hsz,body,dd,footer.svelte-jbr799,h1,h2,h3,h4,h5,h6{font-family:Inter,sans-serif!important}h1{font-size:34px!important;font-weight:400!important;letter-spacing:.25px!important;line-height:1.235!important}h2,h3,h4,h5,h6{font-weight:400!important;letter-spacing:.25px!important;line-height:1.235!important}.logo.svelte-a08hsz.svelte-a08hsz,a,a.svelte-a08hsz.svelte-a08hsz,footer.svelte-jbr799{font-size:16px!important;font-weight:400!important;letter-spacing:.15px!important;line-height:1.5!important}.logo.svelte-a08hsz.svelte-a08hsz,a.svelte-a08hsz.svelte-a08hsz{color:#fff!important}a,footer.svelte-jbr799{width:100%!important}nav.svelte-a08hsz.svelte-a08hsz{background:#008284!important}article.up,section.live-status article.up{border-left-color:#004e50!important;background:#20bf6b!important}article.down,article.down.down-active,html body div#sapper main.container section article.down.link,section.live-status article.down{border-color:#8c111e!important;background:#f75c65!important}section.live-status.svelte-fqsq6s article.link{position:relative}section.live-status.svelte-fqsq6s article.up.link::after{content:"✅";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}section.live-status.svelte-fqsq6s article.down.link::after{content:"❗";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}section.live-status.svelte-fqsq6s article.degraded.link::after{content:"⚠️";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}.logo>div:nth-child(2){padding-left:2.5em}html{scroll-padding-top:70px}.container.svelte-a08hsz.svelte-a08hsz{justify-content:left!important}article.down.down-active,section article.down,section.live-status article.down{border-color:var(--down-border-left-color)!important;background:var(--down-background-color)!important}article.degraded,main article.degraded.degraded-active,section article.degraded,section article.degraded.link{border-color:#693a00!important;background:#ff9604!important}article.down:nth-child(1)>div:nth-child(3),article.down:nth-child(2)>div:nth-child(3),article.down:nth-child(3)>div:nth-child(3),article.down:nth-child(4)>div:nth-child(3),article.down:nth-child(5)>div:nth-child(3),article.link:nth-child(2)>div:nth-child(3),article.up:nth-child(1)>div:nth-child(3),article.up:nth-child(3)>div:nth-child(3),article.up:nth-child(4)>div:nth-child(3),article.up:nth-child(5)>div:nth-child(3){display:none}article.link:nth-child(2)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(1)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(3)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(4)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(5)>h4:nth-child(1)>a:nth-child(2){pointer-events:none;text-decoration:none;color:inherit;cursor:default}section div,section div .data.svelte-fqsq6s,section h4,section h4 a.svelte-fqsq6s{background:0 0!important}section.live-status article,section.live-status article div{background:0 0!important}form.f>div:nth-child(2)>label:nth-child(2),form.f>div:nth-child(3)>label:nth-child(2),form.f>div:nth-child(4)>label:nth-child(2),form.f>div:nth-child(5)>label:nth-child(2){display:none}</style> <link href=https://status.liquibase.io/themes/light.css rel=stylesheet><link href=https://status.liquibase.io/global.css rel=stylesheet><link href=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg rel=icon type=image/svg><link href=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.png rel=icon type=image/png><script>(function() {
+<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <base href=/ > <link href=manifest.json rel=manifest crossorigin=use-credentials> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');(function(){try{eval("async function x(){}");var main="/client/client.0a7eca4f.js"}catch(e){main="/client/legacy/client.6a8f5b8c.js"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@2.0.5.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());</script> <link href=client/client-31a52aa5.css rel=stylesheet><link href=client/createOctokit-a85f76c7.css rel=stylesheet><link href=client/index-b0b6455a.css rel=stylesheet> <title>Status</title><style>.logo.svelte-a08hsz.svelte-a08hsz,a,a.svelte-a08hsz.svelte-a08hsz,body,dd,footer.svelte-jbr799,h1,h2,h3,h4,h5,h6{font-family:Inter,sans-serif!important}h1{font-size:34px!important;font-weight:400!important;letter-spacing:.25px!important;line-height:1.235!important}h2,h3,h4,h5,h6{font-weight:400!important;letter-spacing:.25px!important;line-height:1.235!important}.logo.svelte-a08hsz.svelte-a08hsz,a,a.svelte-a08hsz.svelte-a08hsz,footer.svelte-jbr799{font-size:16px!important;font-weight:400!important;letter-spacing:.15px!important;line-height:1.5!important}.logo.svelte-a08hsz.svelte-a08hsz,a.svelte-a08hsz.svelte-a08hsz{color:#fff!important}a,footer.svelte-jbr799{width:100%!important}nav.svelte-a08hsz.svelte-a08hsz{background:#008284!important}article.up,section.live-status article.up{border-left-color:#004e50!important;background:#20bf6b!important}article.down,article.down.down-active,html body div#sapper main.container section article.down.link,section.live-status article.down{border-color:#8c111e!important;background:#f75c65!important}section.live-status.svelte-fqsq6s article.link{position:relative}section.live-status.svelte-fqsq6s article.up.link::after{content:"✅";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}section.live-status.svelte-fqsq6s article.down.link::after{content:"❗";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}section.live-status.svelte-fqsq6s article.degraded.link::after{content:"⚠️";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:16px}.logo>div:nth-child(2){padding-left:2.5em}html{scroll-padding-top:70px}.container.svelte-a08hsz.svelte-a08hsz{justify-content:left!important}article.down.down-active,section article.down,section.live-status article.down{border-color:var(--down-border-left-color)!important;background:var(--down-background-color)!important}article.degraded,main article.degraded.degraded-active,section article.degraded,section article.degraded.link{border-color:#693a00!important;background:#ff9604!important}article.down:nth-child(1)>div:nth-child(3),article.down:nth-child(2)>div:nth-child(3),article.down:nth-child(3)>div:nth-child(3),article.down:nth-child(4)>div:nth-child(3),article.down:nth-child(5)>div:nth-child(3),article.link:nth-child(2)>div:nth-child(3),article.up:nth-child(1)>div:nth-child(3),article.up:nth-child(3)>div:nth-child(3),article.up:nth-child(4)>div:nth-child(3),article.up:nth-child(5)>div:nth-child(3){display:none}article.link:nth-child(2)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(1)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(3)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(4)>h4:nth-child(1)>a:nth-child(2),article.up:nth-child(5)>h4:nth-child(1)>a:nth-child(2){pointer-events:none;text-decoration:none;color:inherit;cursor:default}section div,section div .data.svelte-fqsq6s,section h4,section h4 a.svelte-fqsq6s{background:0 0!important}section.live-status article,section.live-status article div{background:0 0!important}form.f>div:nth-child(2)>label:nth-child(2),form.f>div:nth-child(3)>label:nth-child(2),form.f>div:nth-child(4)>label:nth-child(2),form.f>div:nth-child(5)>label:nth-child(2){display:none}</style> <link href=https://status.liquibase.io/themes/light.css rel=stylesheet><link href=https://status.liquibase.io/global.css rel=stylesheet><link href=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg rel=icon type=image/svg><link href=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.png rel=icon type=image/png><script>(function() {
   // Track whether replacements have been applied
   let replacementsApplied = false;
 
   function addPastIncidentsId() {
-    const h2Elements = document.querySelectorAll('h2');
-    for (const h2 of h2Elements) {
-      if (h2.textContent === 'Past Incidents' || h2.textContent === 'Past Events') {
-        h2.id = 'history';
-        if (h2.textContent === 'Past Incidents') {
-          h2.textContent = 'Past Events';
+    try {
+      const h2Elements = document.querySelectorAll('h2');
+      for (const h2 of h2Elements) {
+        if (h2 && (h2.textContent === 'Past Incidents' || h2.textContent === 'Past Events')) {
+          h2.id = 'history';
+          if (h2.textContent === 'Past Incidents') {
+            h2.textContent = 'Past Events';
+          }
         }
       }
+    } catch (e) {
+      console.log('Error in addPastIncidentsId:', e);
     }
   }
 
   function convertDatesToUTC() {
-    // Convert dates in dd elements
-    const dateElements = document.querySelectorAll('dd');
-    dateElements.forEach(el => {
-      if (el.innerText.includes('/')) {
-        const date = new Date(el.innerText);
-        el.innerText = date.toUTCString().replace('GMT', 'UTC');
-      }
-    });
-
-    // Convert dates in incident headers
-    const incidentDivs = document.querySelectorAll('div.f div');
-    incidentDivs.forEach(div => {
-      const text = div.innerText;
-      if (text.includes('Opened at')) {
-        const dateStr = text.match(/Opened at (.*?) with/)?.[1];
-        if (dateStr) {
-          const date = new Date(dateStr);
-          div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
+    try {
+      // Convert dates in dd elements
+      const dateElements = document.querySelectorAll('dd');
+      dateElements.forEach(el => {
+        if (el && el.innerText && el.innerText.includes('/')) {
+          try {
+            const date = new Date(el.innerText);
+            if (!isNaN(date.getTime())) {
+              el.innerText = date.toUTCString().replace('GMT', 'UTC');
+            }
+          } catch (e) {
+            // Skip this element if date conversion fails
+          }
         }
-      }
-    });
+      });
+
+      // Convert dates in incident headers
+      const incidentDivs = document.querySelectorAll('div.f div');
+      incidentDivs.forEach(div => {
+        if (!div || !div.innerText) return;
+        
+        const text = div.innerText;
+        if (text.includes('Opened at')) {
+          const match = text.match(/Opened at (.*?) with/);
+          const dateStr = match && match[1];
+          if (dateStr) {
+            try {
+              const date = new Date(dateStr);
+              if (!isNaN(date.getTime())) {
+                div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
+              }
+            } catch (e) {
+              // Skip this element if date conversion fails
+            }
+          }
+        }
+      });
+    } catch (e) {
+      console.log('Error in convertDatesToUTC:', e);
+    }
   }
 
   function limitEvents() {
-    // Process each type of article separately for Past Events section
-    const pastEventsH2 = document.querySelector('h2#history');
-    if (pastEventsH2) {
-      let section = pastEventsH2.parentElement;
-      limitArticlesInSection(section, 'article.down.link', 2);
-      limitArticlesInSection(section, 'article.link.degraded', 2);
+    try {
+      // Process each type of article separately for Past Events section
+      const pastEventsH2 = document.querySelector('h2#history');
+      if (pastEventsH2) {
+        let section = pastEventsH2.parentElement;
+        if (section) {
+          limitArticlesInSection(section, 'article.down.link', 2);
+          limitArticlesInSection(section, 'article.link.degraded', 2);
+        }
+      }
+      
+      // Process each type of article separately for Past Scheduled Maintenance section
+      const pastMaintenanceH2Elements = document.querySelectorAll('h2.svelte-18y4uo2');
+      if (pastMaintenanceH2Elements.length > 0) {
+        const pastMaintenanceH2 = Array.from(pastMaintenanceH2Elements).find(h2 => 
+          h2 && h2.textContent === 'Past Scheduled Maintenance');
+        if (pastMaintenanceH2) {
+          let section = pastMaintenanceH2.parentElement;
+          if (section) {
+            limitArticlesInSection(section, 'article.down.link', 2);
+            limitArticlesInSection(section, 'article.link.degraded', 2);
+          }
+        }
+      }
+      
+      // Clean up orphaned headers
+      cleanupOrphanedHeaders();
+    } catch (e) {
+      console.log('Error in limitEvents:', e);
     }
-    
-    // Process each type of article separately for Past Scheduled Maintenance section
-    const pastMaintenanceH2 = Array.from(document.querySelectorAll('h2.svelte-18y4uo2')).find(h2 => 
-      h2.textContent === 'Past Scheduled Maintenance');
-    if (pastMaintenanceH2) {
-      let section = pastMaintenanceH2.parentElement;
-      limitArticlesInSection(section, 'article.down.link', 2);
-      limitArticlesInSection(section, 'article.link.degraded', 2);
-    }
-    
-    // Clean up orphaned headers
-    cleanupOrphanedHeaders();
   }
   
   function limitArticlesInSection(section, selector, limit) {
-    const articles = section.querySelectorAll(selector);
-    
-    // If we have more than the limit of articles, hide all except the first 'limit' (most recent)
-    if (articles.length > limit) {
-      const articlesArray = Array.from(articles);
-      // Keep first 'limit' visible
-      for (let i = limit; i < articlesArray.length; i++) {
-        articlesArray[i].style.display = 'none';
+    try {
+      if (!section) return;
+      
+      const articles = section.querySelectorAll(selector);
+      
+      // If we have more than the limit of articles, hide all except the first 'limit' (most recent)
+      if (articles.length > limit) {
+        const articlesArray = Array.from(articles);
+        // Keep first 'limit' visible
+        for (let i = limit; i < articlesArray.length; i++) {
+          if (articlesArray[i]) {
+            articlesArray[i].style.display = 'none';
+          }
+        }
       }
-    }
-  }
-
-  function processArticleType(selector) {
-    const articles = document.querySelectorAll(selector);
-
-    // If we have more than 2 articles, hide all except the first 2 (most recent)
-    if (articles.length > 2) {
-      const articlesArray = Array.from(articles);
-      // Keep first 2 visible
-      for (let i = 2; i < articlesArray.length; i++) {
-        articlesArray[i].style.display = 'none';
-      }
+    } catch (e) {
+      console.log('Error in limitArticlesInSection:', e);
     }
   }
 
   function cleanupOrphanedHeaders() {
-    // Get all H3 date headers
-    const dateHeaders = document.querySelectorAll('html body div#sapper main.container section h3');
+    try {
+      // Get all H3 date headers
+      const dateHeaders = document.querySelectorAll('html body div#sapper main.container section h3');
 
-    dateHeaders.forEach(header => {
-      let nextElement = header.nextElementSibling;
-      let hasVisibleArticle = false;
+      dateHeaders.forEach(header => {
+        if (!header) return;
+        
+        let nextElement = header.nextElementSibling;
+        let hasVisibleArticle = false;
 
-      // Check all elements until the next header or until no more siblings
-      while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
-        // If it's an article and it's visible, mark this header as having visible content
-        if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
-          hasVisibleArticle = true;
-          break;
+        // Check all elements until the next header or until no more siblings
+        while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
+          // If it's an article and it's visible, mark this header as having visible content
+          if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
+            hasVisibleArticle = true;
+            break;
+          }
+          nextElement = nextElement.nextElementSibling;
         }
-        nextElement = nextElement.nextElementSibling;
-      }
 
-      // If no visible articles were found for this date header, hide it
-      if (!hasVisibleArticle) {
-        header.style.display = 'none';
-      } else {
-        // Make sure the header is visible if it has visible articles
-        header.style.display = '';
-      }
-    });
+        // If no visible articles were found for this date header, hide it
+        if (!hasVisibleArticle) {
+          header.style.display = 'none';
+        } else {
+          // Make sure the header is visible if it has visible articles
+          header.style.display = '';
+        }
+      });
+    } catch (e) {
+      console.log('Error in cleanupOrphanedHeaders:', e);
+    }
   }
 
   function setupTimeSelector() {
-        // Wait for the form to be available
-        const checkForm = setInterval(() => {
-          const form = document.querySelector('form.f.r');
-          if (form) {
-            clearInterval(checkForm);
+    try {
+      // Wait for the form to be available
+      const checkForm = setInterval(() => {
+        const form = document.querySelector('form.f.r');
+        if (form) {
+          clearInterval(checkForm);
+          
+          // Select the 24h (day) option
+          const dayOption = document.getElementById('data_day');
+          if (dayOption) {
+            dayOption.checked = true;
             
-            // Select the 24h (day) option
-            const dayOption = document.getElementById('data_day');
-            if (dayOption) {
-              dayOption.checked = true;
-              
-              // Trigger a change event to update graphs
+            // Trigger a change event to update graphs
+            try {
               const event = new Event('change', {
                 bubbles: true,
                 cancelable: true
               });
               dayOption.dispatchEvent(event);
+            } catch (e) {
+              console.log('Error dispatching event:', e);
             }
-            
-            // Add a class to the form to trigger our CSS hiding other options
-            form.classList.add('day-only');
           }
-        }, 100);
-      }
+          
+          // Add a class to the form to trigger our CSS hiding other options
+          form.classList.add('day-only');
+        }
+      }, 100);
+      
+      // Clear interval after 10 seconds if form is not found to prevent memory leaks
+      setTimeout(() => {
+        clearInterval(checkForm);
+      }, 10000);
+    } catch (e) {
+      console.log('Error in setupTimeSelector:', e);
+    }
+  }
 
   function removeCheckIcon() {
-    // Find all articles with "up" class
-    const upArticles = document.querySelectorAll('article.up');
-    
-    // For each "up" article, remove the check mark emoji if it exists
-    upArticles.forEach(article => {
-      if (article.innerHTML.includes('✅')) {
-        article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
-      }
-    });
+    try {
+      // Find all articles with "up" class
+      const upArticles = document.querySelectorAll('article.up');
+      
+      // For each "up" article, remove the check mark emoji if it exists
+      upArticles.forEach(article => {
+        if (article && article.innerHTML && article.innerHTML.includes('✅')) {
+          article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
+        }
+      });
+    } catch (e) {
+      console.log('Error in removeCheckIcon:', e);
+    }
   }
 
   function replaceIncidentsWithEvents() {
-    replacementsApplied = false;
-    let hasReplaced = false;
+    try {
+      replacementsApplied = false;
+      let hasReplaced = false;
 
-    // Find the specific section containing h2 with class svelte-18y4uo2
-    const targetH2 = document.querySelector('h2.svelte-18y4uo2');
-    if (!targetH2) {
-      return false;
-    }
+      // Find the specific section containing h2 with class svelte-18y4uo2
+      const targetH2 = document.querySelector('h2.svelte-18y4uo2');
+      if (!targetH2) {
+        return false;
+      }
 
-    // Find the parent section that contains the h2
-    const parentSection = targetH2.closest('section');
-    if (!parentSection) {
-      return false;
-    }
+      // Find the parent section that contains the h2
+      const parentSection = targetH2.closest('section');
+      if (!parentSection) {
+        return false;
+      }
 
-    // Replace text nodes only within this section
-    const walker = document.createTreeWalker(
-      parentSection,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
+      // Replace text nodes only within this section
+      try {
+        const walker = document.createTreeWalker(
+          parentSection,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
 
-    let textNode;
-    while (textNode = walker.nextNode()) {
-      if (textNode.nodeValue.includes('Incident')) {
-        textNode.nodeValue = textNode.nodeValue.replace(/Incident/g, 'Event');
+        let textNode;
+        while ((textNode = walker.nextNode()) !== null) {
+          if (textNode.nodeValue && textNode.nodeValue.includes('Incident')) {
+            textNode.nodeValue = textNode.nodeValue.replace(/Incident/g, 'Event');
+            hasReplaced = true;
+          }
+        }
+      } catch (e) {
+        console.log('Error in tree walker:', e);
+      }
+
+      // Replace in link text only within this section
+      try {
+        const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
+        elements.forEach(element => {
+          if (element && element.href && element.textContent && element.textContent.includes('Incident')) {
+            element.textContent = element.textContent.replace(/Incident/g, 'Event');
+            hasReplaced = true;
+          }
+        });
+      } catch (e) {
+        console.log('Error replacing link text:', e);
+      }
+
+      // Also replace the h2 text if it contains "Incidents"
+      if (targetH2.textContent === 'Past Incidents') {
+        targetH2.textContent = 'Past Events';
         hasReplaced = true;
       }
-    }
 
-    // Replace in link text only within this section
-    const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
-    elements.forEach(element => {
-      if (element.href && element.textContent.includes('Incident')) {
-        element.textContent = element.textContent.replace(/Incident/g, 'Event');
-        hasReplaced = true;
+      if (hasReplaced) {
+        replacementsApplied = true;
       }
-    });
 
-    // Also replace the h2 text if it contains "Incidents"
-    if (targetH2.textContent === 'Past Incidents') {
-      targetH2.textContent = 'Past Events';
-      hasReplaced = true;
+      return hasReplaced;
+    } catch (e) {
+      console.log('Error in replaceIncidentsWithEvents:', e);
+      return false;
     }
-
-    if (hasReplaced) {
-      replacementsApplied = true;
-    }
-
-    return hasReplaced;
   }
 
   // Initial run and setup observer
   function initializePageModifications() {
-    // Perform initial modifications
-    convertDatesToUTC();
-    addPastIncidentsId();
-    replaceIncidentsWithEvents();
-    limitEvents();
-    removeCheckIcon();
-    setupTimeSelector();
+    try {
+      // Ensure document.body exists
+      if (!document.body) {
+        // Wait for body to be available
+        setTimeout(initializePageModifications, 50);
+        return;
+      }
+      
+      // Perform initial modifications
+      convertDatesToUTC();
+      addPastIncidentsId();
+      replaceIncidentsWithEvents();
+      limitEvents();
+      removeCheckIcon();
+      setupTimeSelector();
 
-    // Set up mutation observer
-    const observer = new MutationObserver((mutations) => {
-      let needsUpdate = false;
+      // Set up mutation observer
+      let observer;
+      try {
+        observer = new MutationObserver((mutations) => {
+          let needsUpdate = false;
 
-      // Check if we need updates based on mutations
-      for (const mutation of mutations) {
-        if (mutation.type === 'childList' ||
-            (mutation.type === 'characterData' &&
-             mutation.target.nodeValue &&
-             mutation.target.nodeValue.includes('Incident'))) {
-          needsUpdate = true;
-          break;
+          // Check if we need updates based on mutations
+          for (const mutation of mutations) {
+            if (mutation.type === 'childList' ||
+                (mutation.type === 'characterData' &&
+                 mutation.target.nodeValue &&
+                 mutation.target.nodeValue.includes('Incident'))) {
+              needsUpdate = true;
+              break;
+            }
+          }
+
+          if (needsUpdate || !replacementsApplied) {
+            convertDatesToUTC();
+            addPastIncidentsId();
+            replaceIncidentsWithEvents();
+            limitEvents();
+            removeCheckIcon();
+            setupTimeSelector();
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+          attributes: true,
+          attributeFilter: ['href', 'textContent', 'innerText']
+        });
+      } catch (e) {
+        console.log('Error setting up mutation observer:', e);
+      }
+
+      // Backup polling mechanism with error handling
+      let backupInterval;
+      try {
+        backupInterval = setInterval(() => {
+          if (document.body && document.body.innerHTML && document.body.innerHTML.includes('Incident')) {
+            replaceIncidentsWithEvents();
+          } else if (replacementsApplied) {
+            // If we've done replacements and no more "Incident" text exists,
+            // we can stop the backup interval
+            clearInterval(backupInterval);
+          }
+        }, 1000); // Check every second
+      } catch (e) {
+        console.log('Error in backup interval:', e);
+        if (backupInterval) {
+          clearInterval(backupInterval);
         }
       }
 
-      if (needsUpdate || !replacementsApplied) {
-        convertDatesToUTC();
-        addPastIncidentsId();
-        replaceIncidentsWithEvents();
-        limitEvents();
-        removeCheckIcon();
-        setupTimeSelector();
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      characterData: true,
-      attributes: true,
-      attributeFilter: ['href', 'textContent', 'innerText']
-    });
-
-    // Backup polling mechanism
-    const backupInterval = setInterval(() => {
-      if (document.body.innerHTML.includes('Incident')) {
-        replaceIncidentsWithEvents();
-      } else if (replacementsApplied) {
-        // If we've done replacements and no more "Incident" text exists,
-        // we can stop the backup interval
-        clearInterval(backupInterval);
-      }
-    }, 1000); // Check every second
-
-    // Stop backup polling after 30 seconds to save resources
-    setTimeout(() => {
-      clearInterval(backupInterval);
-    }, 30000);
+      // Stop backup polling after 30 seconds to save resources
+      setTimeout(() => {
+        if (backupInterval) {
+          clearInterval(backupInterval);
+        }
+      }, 30000);
+    } catch (e) {
+      console.log('Error in initializePageModifications:', e);
+    }
   }
 
-  // Wait for document load
+  // Wait for document load with safety checks
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializePageModifications);
   } else {
-    initializePageModifications();
+    // If already loaded, run immediately but wrapped in setTimeout to ensure execution in next event loop
+    setTimeout(initializePageModifications, 0);
   }
 
-  // Handle page transitions in SPA
+  // Handle page transitions in SPA with error handling
   window.addEventListener('popstate', () => {
     setTimeout(() => {
-      replaceIncidentsWithEvents();
-      setupTimeSelector(); // Add our new function
+      try {
+        replaceIncidentsWithEvents();
+        setupTimeSelector();
+      } catch (e) {
+        console.log('Error in popstate handler:', e);
+      }
     }, 100);
   });
 
-  // Also handle clicks that might trigger SPA navigation
+  // Also handle clicks that might trigger SPA navigation with error handling
   document.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A' || e.target.closest('a')) {
-      setTimeout(() => {
-        replaceIncidentsWithEvents();
-        setupTimeSelector(); // Add our new function
-      }, 100);
+    try {
+      if ((e.target && e.target.tagName === 'A') || (e.target && e.target.closest('a'))) {
+        setTimeout(() => {
+          try {
+            replaceIncidentsWithEvents();
+            setupTimeSelector();
+          } catch (e) {
+            console.log('Error in click handler:', e);
+          }
+        }, 100);
+      }
+    } catch (e) {
+      console.log('Error in document click handler:', e);
     }
   });
-})(); </script> <link href=/client/client.8f7ea64a.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/client-31a52aa5.css rel=preload as=style><link href=/client/index.cc70c3d4.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit.fe8882f2.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/inject_styles.803b7e80.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit-a85f76c7.css rel=preload as=style><link href=/client/index-b0b6455a.css rel=preload as=style></head> <body> <div id=sapper> <nav class=svelte-a08hsz><div class="svelte-a08hsz container"><div><a class="svelte-a08hsz logo" href=https://status.liquibase.io><img alt="" class=svelte-a08hsz src=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_white.svg> <div>Status</div></a></div> <ul class=svelte-a08hsz><li><a class=svelte-a08hsz href=/#history target=_self>History</a> </li> </ul></div> </nav> <main class=container> <header class=svelte-ngkazm><h1>Current Status</h1> <p class="svelte-ngkazm lead">Monitor availability and performance of Liquibase IO</header> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <div class="svelte-fqsq6s f changed"><h2>Live Status</h2> <form class="svelte-fqsq6s f r"><div><input class=svelte-fqsq6s id=data_day name=d type=radio value=day><label class=svelte-fqsq6s for=data_day>24h</label></div> <div><input class=svelte-fqsq6s id=data_week name=d type=radio value=week checked><label class=svelte-fqsq6s for=data_week>7d</label></div> <div><input class=svelte-fqsq6s id=data_month name=d type=radio value=month><label class=svelte-fqsq6s for=data_month>30d</label></div> <div><input class=svelte-fqsq6s id=data_year name=d type=radio value=year><label class=svelte-fqsq6s for=data_year>1y</label></div> <div><input class=svelte-fqsq6s id=data_all name=d type=radio value=all><label class=svelte-fqsq6s for=data_all>all</label></div></form></div> <section class="svelte-fqsq6s live-status"><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div></section></main> <footer class=svelte-jbr799><p>© 2025 Liquibase</p> </footer></div> <script> try {
+})(); </script> <link href=/client/client.0a7eca4f.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/client-31a52aa5.css rel=preload as=style><link href=/client/index.6d0284a2.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit.77c7ff4e.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/inject_styles.803b7e80.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit-a85f76c7.css rel=preload as=style><link href=/client/index-b0b6455a.css rel=preload as=style></head> <body> <div id=sapper> <nav class=svelte-a08hsz><div class="svelte-a08hsz container"><div><a class="svelte-a08hsz logo" href=https://status.liquibase.io><img alt="" class=svelte-a08hsz src=https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_white.svg> <div>Status</div></a></div> <ul class=svelte-a08hsz><li><a class=svelte-a08hsz href=/#history target=_self>History</a> </li> </ul></div> </nav> <main class=container> <header class=svelte-ngkazm><h1>Current Status</h1> <p class="svelte-ngkazm lead">Monitor availability and performance of Liquibase IO</header> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <div class="svelte-fqsq6s f changed"><h2>Live Status</h2> <form class="svelte-fqsq6s f r"><div><input class=svelte-fqsq6s id=data_day name=d type=radio value=day><label class=svelte-fqsq6s for=data_day>24h</label></div> <div><input class=svelte-fqsq6s id=data_week name=d type=radio value=week checked><label class=svelte-fqsq6s for=data_week>7d</label></div> <div><input class=svelte-fqsq6s id=data_month name=d type=radio value=month><label class=svelte-fqsq6s for=data_month>30d</label></div> <div><input class=svelte-fqsq6s id=data_year name=d type=radio value=year><label class=svelte-fqsq6s for=data_year>1y</label></div> <div><input class=svelte-fqsq6s id=data_all name=d type=radio value=all><label class=svelte-fqsq6s for=data_all>all</label></div></form></div> <section class="svelte-fqsq6s live-status"><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div></section></main> <footer class=svelte-jbr799><p>© 2025 Liquibase</p> </footer></div> <script> try {
         if (typeof window !== "undefined" && window.navigator && navigator.serviceWorker) {
           navigator.serviceWorker.getRegistrations().then(function (registrations) {
             for (let registration of registrations) {
