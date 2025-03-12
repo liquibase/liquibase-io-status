@@ -86,35 +86,49 @@ status-website:
       }
 
       function limitEvents() {
-        // Process each type of article separately
-        processArticleType('html body div#sapper main.container section article.down.link');
-        processArticleType('html body div#sapper main.container section article.link.degraded');
-
-        // Then clean up orphaned H3 headers
+        // Process each type of article separately for Past Events section
+        const pastEventsH2 = document.querySelector('h2#history');
+        if (pastEventsH2) {
+          let section = pastEventsH2.parentElement;
+          limitArticlesInSection(section, 'article.down.link', 2);
+          limitArticlesInSection(section, 'article.link.degraded', 2);
+        }
+        
+        // Process each type of article separately for Past Scheduled Maintenance section
+        const pastMaintenanceH2 = Array.from(document.querySelectorAll('h2.svelte-18y4uo2')).find(h2 => 
+          h2.textContent === 'Past Scheduled Maintenance');
+        if (pastMaintenanceH2) {
+          let section = pastMaintenanceH2.parentElement;
+          limitArticlesInSection(section, 'article.down.link', 2);
+          limitArticlesInSection(section, 'article.link.degraded', 2);
+        }
+        
+        // Clean up orphaned headers
         cleanupOrphanedHeaders();
+      }
+      
+      function limitArticlesInSection(section, selector, limit) {
+        const articles = section.querySelectorAll(selector);
+        
+        // If we have more than the limit of articles, hide all except the first 'limit' (most recent)
+        if (articles.length > limit) {
+          const articlesArray = Array.from(articles);
+          // Keep first 'limit' visible
+          for (let i = limit; i < articlesArray.length; i++) {
+            articlesArray[i].style.display = 'none';
+          }
+        }
       }
 
       function processArticleType(selector) {
         const articles = document.querySelectorAll(selector);
 
-        // For degraded articles, show the first 4
-        if (selector.includes('degraded')) {
-          if (articles.length > 4) {
-            const articlesArray = Array.from(articles);
-            // Keep first 4 visible
-            for (let i = 4; i < articlesArray.length; i++) {
-              articlesArray[i].style.display = 'none';
-            }
-          }
-        } 
-        // For other types (down), keep showing only the first 2
-        else {
-          if (articles.length > 2) {
-            const articlesArray = Array.from(articles);
-            // Keep first 2 visible
-            for (let i = 2; i < articlesArray.length; i++) {
-              articlesArray[i].style.display = 'none';
-            }
+        // If we have more than 2 articles, hide all except the first 2 (most recent)
+        if (articles.length > 2) {
+          const articlesArray = Array.from(articles);
+          // Keep first 2 visible
+          for (let i = 2; i < articlesArray.length; i++) {
+            articlesArray[i].style.display = 'none';
           }
         }
       }
