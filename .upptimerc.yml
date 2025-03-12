@@ -97,12 +97,24 @@ status-website:
       function processArticleType(selector) {
         const articles = document.querySelectorAll(selector);
 
-        // If we have more than 2 articles, hide all except the first 2 (most recent)
-        if (articles.length > 2) {
-          const articlesArray = Array.from(articles);
-          // Keep first 2 visible
-          for (let i = 2; i < articlesArray.length; i++) {
-            articlesArray[i].style.display = 'none';
+        // For degraded articles, show the first 4
+        if (selector.includes('degraded')) {
+          if (articles.length > 4) {
+            const articlesArray = Array.from(articles);
+            // Keep first 4 visible
+            for (let i = 4; i < articlesArray.length; i++) {
+              articlesArray[i].style.display = 'none';
+            }
+          }
+        } 
+        // For other types (down), keep showing only the first 2
+        else {
+          if (articles.length > 2) {
+            const articlesArray = Array.from(articles);
+            // Keep first 2 visible
+            for (let i = 2; i < articlesArray.length; i++) {
+              articlesArray[i].style.display = 'none';
+            }
           }
         }
       }
