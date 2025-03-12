@@ -46,12 +46,48 @@ status-website:
   introMessage: "Monitor availability and performance of Liquibase IO"
   js: |
     (function() {
+      // Safe element selector that won't fail if element doesn't exist
+      function safeQuerySelector(selector) {
+        try {
+          return document.querySelector(selector);
+        } catch(e) {
+          console.warn('Error querying for', selector, e);
+          return null;
+        }
+      }
+      
+      // Safe element selector for multiple elements that won't fail
+      function safeQuerySelectorAll(selector) {
+        try {
+          return document.querySelectorAll(selector);
+        } catch(e) {
+          console.warn('Error querying for all', selector, e);
+          return [];
+        }
+      }
+      
+      // Safe function to modify text nodes
+      function safeReplaceText(element, search, replace) {
+        if (!element || !element.nodeValue) return false;
+        try {
+          element.nodeValue = element.nodeValue.replace(new RegExp(search, 'g'), replace);
+          return true;
+        } catch(e) {
+          console.warn('Error replacing text', e);
+          return false;
+        }
+      }
+  
       // Track whether replacements have been applied
       let replacementsApplied = false;
-
+  
       function addPastIncidentsId() {
-        const h2Elements = document.querySelectorAll('h2');
+        const h2Elements = safeQuerySelectorAll('h2');
+        if (!h2Elements.length) return;
+        
         for (const h2 of h2Elements) {
+          if (!h2 || !h2.textContent) continue;
+          
           if (h2.textContent === 'Past Incidents' || h2.textContent === 'Past Events') {
             h2.id = 'history';
             if (h2.textContent === 'Past Incidents') {
@@ -60,257 +96,345 @@ status-website:
           }
         }
       }
-
+  
       function convertDatesToUTC() {
-        // Convert dates in dd elements
-        const dateElements = document.querySelectorAll('dd');
-        dateElements.forEach(el => {
-          if (el.innerText.includes('/')) {
-            const date = new Date(el.innerText);
-            el.innerText = date.toUTCString().replace('GMT', 'UTC');
-          }
-        });
-
-        // Convert dates in incident headers
-        const incidentDivs = document.querySelectorAll('div.f div');
-        incidentDivs.forEach(div => {
-          const text = div.innerText;
-          if (text.includes('Opened at')) {
-            const dateStr = text.match(/Opened at (.*?) with/)?.[1];
-            if (dateStr) {
-              const date = new Date(dateStr);
-              div.innerText = text.replace(dateStr, date.toUTCString().replace('GMT', 'UTC'));
+        try {
+          // Convert dates in dd elements
+          const dateElements = safeQuerySelectorAll('dd');
+          dateElements.forEach(el => {
+            if (!el || !el.innerText) return;
+            
+            if (el.innerText.includes('/')) {
+              try {
+                const date = new Date(el.innerText);
+                if (!isNaN(date.getTime())) {
+                  el.innerText = date.toUTCString().replace('GMT', 'UTC');
+                }
+              } catch(e) {
+                console.warn('Error converting date', el.innerText, e);
+              }
             }
-          }
-        });
-      }
-
-      function limitEvents() {
-        // Process each type of article separately
-        processArticleType('html body div#sapper main.container section article.down.link');
-        processArticleType('html body div#sapper main.container section article.link.degraded');
-
-        // Then clean up orphaned H3 headers
-        cleanupOrphanedHeaders();
-      }
-
-      function processArticleType(selector) {
-        const articles = document.querySelectorAll(selector);
-
-        // If we have more than 2 articles, hide all except the first 2 (most recent)
-        if (articles.length > 2) {
-          const articlesArray = Array.from(articles);
-          // Keep first 2 visible
-          for (let i = 2; i < articlesArray.length; i++) {
-            articlesArray[i].style.display = 'none';
-          }
+          });
+  
+          // Convert dates in incident headers
+          const incidentDivs = safeQuerySelectorAll('div.f div');
+          incidentDivs.forEach(div => {
+            if (!div || !div.innerText) return;
+            
+            const text = div.innerText;
+            if (text.includes('Opened at')) {
+              const dateMatch = text.match(/Opened at (.*?) with/);
+              if (dateMatch && dateMatch[1]) {
+                try {
+                  const date = new Date(dateMatch[1]);
+                  if (!isNaN(date.getTime())) {
+                    div.innerText = text.replace(dateMatch[1], date.toUTCString().replace('GMT', 'UTC'));
+                  }
+                } catch(e) {
+                  console.warn('Error converting incident date', dateMatch[1], e);
+                }
+              }
+            }
+          });
+        } catch(e) {
+          console.warn('Error in date conversion', e);
         }
       }
-
-      function cleanupOrphanedHeaders() {
-        // Get all H3 date headers
-        const dateHeaders = document.querySelectorAll('html body div#sapper main.container section h3');
-
-        dateHeaders.forEach(header => {
-          let nextElement = header.nextElementSibling;
-          let hasVisibleArticle = false;
-
-          // Check all elements until the next header or until no more siblings
-          while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
-            // If it's an article and it's visible, mark this header as having visible content
-            if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
-              hasVisibleArticle = true;
-              break;
-            }
-            nextElement = nextElement.nextElementSibling;
-          }
-
-          // If no visible articles were found for this date header, hide it
-          if (!hasVisibleArticle) {
-            header.style.display = 'none';
-          } else {
-            // Make sure the header is visible if it has visible articles
-            header.style.display = '';
-          }
-        });
+  
+      function limitEvents() {
+        try {
+          // Process each type of article separately
+          processArticleType('html body div#sapper main.container section article.down.link');
+          processArticleType('html body div#sapper main.container section article.link.degraded');
+  
+          // Then clean up orphaned H3 headers
+          cleanupOrphanedHeaders();
+        } catch(e) {
+          console.warn('Error limiting events', e);
+        }
       }
-
-      function setupTimeSelector() {
-            // Wait for the form to be available
-            const checkForm = setInterval(() => {
-              const form = document.querySelector('form.f.r');
-              if (form) {
-                clearInterval(checkForm);
-                
-                // Select the 24h (day) option
-                const dayOption = document.getElementById('data_day');
-                if (dayOption) {
-                  dayOption.checked = true;
-                  
-                  // Trigger a change event to update graphs
-                  const event = new Event('change', {
-                    bubbles: true,
-                    cancelable: true
-                  });
-                  dayOption.dispatchEvent(event);
-                }
-                
-                // Add a class to the form to trigger our CSS hiding other options
-                form.classList.add('day-only');
+  
+      function processArticleType(selector) {
+        try {
+          const articles = safeQuerySelectorAll(selector);
+          
+          // If we have more than 2 articles, hide all except the first 2 (most recent)
+          if (articles.length > 2) {
+            const articlesArray = Array.from(articles);
+            // Keep first 2 visible
+            for (let i = 2; i < articlesArray.length; i++) {
+              if (articlesArray[i]) {
+                articlesArray[i].style.display = 'none';
               }
-            }, 100);
+            }
           }
+        } catch(e) {
+          console.warn('Error processing article type', selector, e);
+        }
+      }
+  
+      function cleanupOrphanedHeaders() {
+        try {
+          // Get all H3 date headers
+          const dateHeaders = safeQuerySelectorAll('html body div#sapper main.container section h3');
+  
+          dateHeaders.forEach(header => {
+            if (!header) return;
+            
+            let nextElement = header.nextElementSibling;
+            let hasVisibleArticle = false;
+  
+            // Check all elements until the next header or until no more siblings
+            while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
+              // If it's an article and it's visible, mark this header as having visible content
+              if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
+                hasVisibleArticle = true;
+                break;
+              }
+              nextElement = nextElement.nextElementSibling;
+            }
+  
+            // If no visible articles were found for this date header, hide it
+            header.style.display = hasVisibleArticle ? '' : 'none';
+          });
+        } catch(e) {
+          console.warn('Error cleaning up orphaned headers', e);
+        }
+      }
+  
+      function setupTimeSelector() {
+        try {
+          // Wait for the form to be available
+          const checkForm = setInterval(() => {
+            const form = safeQuerySelector('form.f.r');
+            if (!form) return;
+            
+            clearInterval(checkForm);
+            
+            // Select the 24h (day) option
+            const dayOption = document.getElementById('data_day');
+            if (dayOption) {
+              dayOption.checked = true;
+              
+              // Trigger a change event to update graphs
+              try {
+                const event = new Event('change', {
+                  bubbles: true,
+                  cancelable: true
+                });
+                dayOption.dispatchEvent(event);
+              } catch(e) {
+                console.warn('Error dispatching event', e);
+              }
+            }
+            
+            // Add a class to the form to trigger our CSS hiding other options
+            form.classList.add('day-only');
+          }, 100);
+          
+          // Safety - clear interval after 10 seconds max
+          setTimeout(() => {
+            clearInterval(checkForm);
+          }, 10000);
+        } catch(e) {
+          console.warn('Error setting up time selector', e);
+        }
+      }
     
       function removeCheckIcon() {
-        // Find all articles with "up" class
-        const upArticles = document.querySelectorAll('article.up');
-        
-        // For each "up" article, remove the check mark emoji if it exists
-        upArticles.forEach(article => {
-          if (article.innerHTML.includes('✅')) {
-            article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
-          }
-        });
+        try {
+          // Find all articles with "up" class
+          const upArticles = safeQuerySelectorAll('article.up');
+          
+          // For each "up" article, remove the check mark emoji if it exists
+          upArticles.forEach(article => {
+            if (!article || !article.innerHTML) return;
+            
+            if (article.innerHTML.includes('✅')) {
+              article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
+            }
+          });
+        } catch(e) {
+          console.warn('Error removing check icon', e);
+        }
       }
-
+  
       function replaceIncidentsWithEvents() {
-        replacementsApplied = false;
-        let hasReplaced = false;
-
-        // Find the specific section containing h2 with class svelte-18y4uo2
-        const targetH2 = document.querySelector('h2.svelte-18y4uo2');
-        if (!targetH2) {
-          return false;
-        }
-
-        // Find the parent section that contains the h2
-        const parentSection = targetH2.closest('section');
-        if (!parentSection) {
-          return false;
-        }
-
-        // Replace text nodes only within this section
-        const walker = document.createTreeWalker(
-          parentSection,
-          NodeFilter.SHOW_TEXT,
-          null,
-          false
-        );
-
-        let textNode;
-        while (textNode = walker.nextNode()) {
-          if (textNode.nodeValue.includes('Incident')) {
-            textNode.nodeValue = textNode.nodeValue.replace(/Incident/g, 'Event');
+        try {
+          replacementsApplied = false;
+          let hasReplaced = false;
+  
+          // Find the specific section containing h2 with class svelte-18y4uo2
+          const targetH2 = safeQuerySelector('h2.svelte-18y4uo2');
+          if (!targetH2) {
+            return false;
+          }
+  
+          // Find the parent section that contains the h2
+          const parentSection = targetH2.closest('section');
+          if (!parentSection) {
+            return false;
+          }
+  
+          // Replace text nodes only within this section
+          try {
+            const walker = document.createTreeWalker(
+              parentSection,
+              NodeFilter.SHOW_TEXT,
+              null,
+              false
+            );
+  
+            let textNode;
+            while (textNode = walker.nextNode()) {
+              if (textNode.nodeValue && textNode.nodeValue.includes('Incident')) {
+                safeReplaceText(textNode, 'Incident', 'Event');
+                hasReplaced = true;
+              }
+            }
+          } catch(e) {
+            console.warn('Error walking DOM tree', e);
+          }
+  
+          // Replace in link text only within this section
+          try {
+            const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
+            elements.forEach(element => {
+              if (element.href && element.textContent && element.textContent.includes('Incident')) {
+                element.textContent = element.textContent.replace(/Incident/g, 'Event');
+                hasReplaced = true;
+              }
+            });
+          } catch(e) {
+            console.warn('Error replacing link text', e);
+          }
+  
+          // Also replace the h2 text if it contains "Incidents"
+          if (targetH2.textContent === 'Past Incidents') {
+            targetH2.textContent = 'Past Events';
             hasReplaced = true;
           }
-        }
-
-        // Replace in link text only within this section
-        const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
-        elements.forEach(element => {
-          if (element.href && element.textContent.includes('Incident')) {
-            element.textContent = element.textContent.replace(/Incident/g, 'Event');
-            hasReplaced = true;
+  
+          if (hasReplaced) {
+            replacementsApplied = true;
           }
-        });
-
-        // Also replace the h2 text if it contains "Incidents"
-        if (targetH2.textContent === 'Past Incidents') {
-          targetH2.textContent = 'Past Events';
-          hasReplaced = true;
+  
+          return hasReplaced;
+        } catch(e) {
+          console.warn('Error replacing incidents with events', e);
+          return false;
         }
-
-        if (hasReplaced) {
-          replacementsApplied = true;
-        }
-
-        return hasReplaced;
       }
-
+  
       // Initial run and setup observer
       function initializePageModifications() {
-        // Perform initial modifications
-        convertDatesToUTC();
-        addPastIncidentsId();
-        replaceIncidentsWithEvents();
-        limitEvents();
-        removeCheckIcon();
-        setupTimeSelector();
-
-        // Set up mutation observer
-        const observer = new MutationObserver((mutations) => {
-          let needsUpdate = false;
-
-          // Check if we need updates based on mutations
-          for (const mutation of mutations) {
-            if (mutation.type === 'childList' ||
-                (mutation.type === 'characterData' &&
-                 mutation.target.nodeValue &&
-                 mutation.target.nodeValue.includes('Incident'))) {
-              needsUpdate = true;
-              break;
-            }
-          }
-
-          if (needsUpdate || !replacementsApplied) {
+        try {
+          // Perform initial modifications
+          setTimeout(() => {
             convertDatesToUTC();
             addPastIncidentsId();
             replaceIncidentsWithEvents();
             limitEvents();
             removeCheckIcon();
             setupTimeSelector();
+          }, 500); // Give the page a little time to fully render
+  
+          // Set up mutation observer with error handling
+          try {
+            const observer = new MutationObserver((mutations) => {
+              try {
+                let needsUpdate = false;
+  
+                // Check if we need updates based on mutations
+                for (const mutation of mutations) {
+                  if (mutation.type === 'childList' ||
+                      (mutation.type === 'characterData' &&
+                       mutation.target.nodeValue &&
+                       mutation.target.nodeValue.includes('Incident'))) {
+                    needsUpdate = true;
+                    break;
+                  }
+                }
+  
+                if (needsUpdate || !replacementsApplied) {
+                  convertDatesToUTC();
+                  addPastIncidentsId();
+                  replaceIncidentsWithEvents();
+                  limitEvents();
+                  removeCheckIcon();
+                }
+              } catch(e) {
+                console.warn('Error in mutation observer callback', e);
+              }
+            });
+  
+            observer.observe(document.body, {
+              childList: true,
+              subtree: true,
+              characterData: true,
+              attributes: true,
+              attributeFilter: ['href', 'textContent', 'innerText']
+            });
+          } catch(e) {
+            console.warn('Error setting up mutation observer', e);
           }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-          characterData: true,
-          attributes: true,
-          attributeFilter: ['href', 'textContent', 'innerText']
-        });
-
-        // Backup polling mechanism
-        const backupInterval = setInterval(() => {
-          if (document.body.innerHTML.includes('Incident')) {
-            replaceIncidentsWithEvents();
-          } else if (replacementsApplied) {
-            // If we've done replacements and no more "Incident" text exists,
-            // we can stop the backup interval
-            clearInterval(backupInterval);
-          }
-        }, 1000); // Check every second
-
-        // Stop backup polling after 30 seconds to save resources
-        setTimeout(() => {
-          clearInterval(backupInterval);
-        }, 30000);
-      }
-
-      // Wait for document load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializePageModifications);
-      } else {
-        initializePageModifications();
-      }
-
-      // Handle page transitions in SPA
-      window.addEventListener('popstate', () => {
-        setTimeout(() => {
-          replaceIncidentsWithEvents();
-          setupTimeSelector(); // Add our new function
-        }, 100);
-      });
-
-      // Also handle clicks that might trigger SPA navigation
-      document.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' || e.target.closest('a')) {
+  
+          // Backup polling mechanism with reduced frequency
+          const backupInterval = setInterval(() => {
+            try {
+              if (document.body.innerHTML.includes('Incident')) {
+                replaceIncidentsWithEvents();
+              }
+            } catch(e) {
+              console.warn('Error in backup interval', e);
+            }
+          }, 2000); // Check every 2 seconds
+  
+          // Stop backup polling after 20 seconds to save resources
           setTimeout(() => {
-            replaceIncidentsWithEvents();
-            setupTimeSelector(); // Add our new function
-          }, 100);
+            clearInterval(backupInterval);
+          }, 20000);
+        } catch(e) {
+          console.warn('Error initializing page modifications', e);
         }
-      });
+      }
+  
+      // Wait for document load
+      try {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initializePageModifications);
+        } else {
+          initializePageModifications();
+        }
+  
+        // Handle page transitions in SPA
+        window.addEventListener('popstate', () => {
+          setTimeout(() => {
+            try {
+              replaceIncidentsWithEvents();
+              setupTimeSelector();
+            } catch(e) {
+              console.warn('Error handling popstate event', e);
+            }
+          }, 500);
+        });
+  
+        // Also handle clicks that might trigger SPA navigation
+        document.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A' || e.target.closest('a')) {
+            setTimeout(() => {
+              try {
+                replaceIncidentsWithEvents();
+                setupTimeSelector();
+              } catch(e) {
+                console.warn('Error handling click event', e);
+              }
+            }, 500);
+          }
+        });
+      } catch(e) {
+        console.warn('Error setting up event listeners', e);
+      }
     })();
   customHeadHtml: |
     <style>
