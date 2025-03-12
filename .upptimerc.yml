@@ -141,64 +141,107 @@ status-website:
         }
       }
   
+      // Modified to be less aggressive with hiding elements
       function limitEvents() {
         try {
-          // Process each type of article separately
-          processArticleType('html body div#sapper main.container section article.down.link');
-          processArticleType('html body div#sapper main.container section article.link.degraded');
-  
-          // Then clean up orphaned H3 headers
-          cleanupOrphanedHeaders();
+          // Get the Past Events section
+          const pastEventsH2 = Array.from(safeQuerySelectorAll('h2')).find(
+            h2 => h2.textContent === 'Past Events' || h2.textContent === 'Past Incidents'
+          );
+          
+          if (!pastEventsH2) {
+            console.warn('Past Events section not found');
+            return;
+          }
+          
+          // Find the section that contains past events
+          const pastEventsSection = pastEventsH2.closest('section');
+          if (!pastEventsSection) {
+            console.warn('Past Events container section not found');
+            return;
+          }
+          
+          // Make sure the past events section is visible
+          pastEventsH2.style.display = '';
+          pastEventsSection.style.display = '';
+          
+          // No longer aggressively limiting the number of past events
+          // This was likely causing the issue where past events weren't visible
         } catch(e) {
           console.warn('Error limiting events', e);
         }
       }
   
-      function processArticleType(selector) {
+      function removeCheckIcon() {
         try {
-          const articles = safeQuerySelectorAll(selector);
+          // Find all articles with "up" class
+          const upArticles = safeQuerySelectorAll('article.up');
           
-          // If we have more than 2 articles, hide all except the first 2 (most recent)
-          if (articles.length > 2) {
-            const articlesArray = Array.from(articles);
-            // Keep first 2 visible
-            for (let i = 2; i < articlesArray.length; i++) {
-              if (articlesArray[i]) {
-                articlesArray[i].style.display = 'none';
-              }
+          // For each "up" article, remove the check mark emoji if it exists
+          upArticles.forEach(article => {
+            if (!article || !article.innerHTML) return;
+            
+            if (article.innerHTML.includes('✅')) {
+              article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
             }
-          }
+          });
         } catch(e) {
-          console.warn('Error processing article type', selector, e);
+          console.warn('Error removing check icon', e);
         }
       }
   
-      function cleanupOrphanedHeaders() {
+      function replaceIncidentsWithEvents() {
         try {
-          // Get all H3 date headers
-          const dateHeaders = safeQuerySelectorAll('html body div#sapper main.container section h3');
+          replacementsApplied = false;
+          let hasReplaced = false;
   
-          dateHeaders.forEach(header => {
-            if (!header) return;
+          // Handle h2 elements (section headers)
+          const h2Elements = safeQuerySelectorAll('h2');
+          h2Elements.forEach(h2 => {
+            if (!h2 || !h2.textContent) return;
             
-            let nextElement = header.nextElementSibling;
-            let hasVisibleArticle = false;
-  
-            // Check all elements until the next header or until no more siblings
-            while (nextElement && nextElement.tagName !== 'H3' && nextElement.tagName !== 'H2') {
-              // If it's an article and it's visible, mark this header as having visible content
-              if (nextElement.tagName === 'ARTICLE' && nextElement.style.display !== 'none') {
-                hasVisibleArticle = true;
-                break;
-              }
-              nextElement = nextElement.nextElementSibling;
+            if (h2.textContent === 'Past Incidents') {
+              h2.textContent = 'Past Events';
+              h2.id = 'history'; // Ensure ID is set for navigation
+              hasReplaced = true;
             }
-  
-            // If no visible articles were found for this date header, hide it
-            header.style.display = hasVisibleArticle ? '' : 'none';
           });
+  
+          // Replace all occurrences of "Incident" with "Event" in text nodes
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+  
+          let textNode;
+          while (textNode = walker.nextNode()) {
+            if (textNode.nodeValue && textNode.nodeValue.includes('Incident')) {
+              safeReplaceText(textNode, 'Incident', 'Event');
+              hasReplaced = true;
+            }
+          }
+  
+          // Replace in link text
+          const links = safeQuerySelectorAll('a');
+          links.forEach(link => {
+            if (!link || !link.textContent) return;
+            
+            if (link.textContent.includes('Incident')) {
+              link.textContent = link.textContent.replace(/Incident/g, 'Event');
+              hasReplaced = true;
+            }
+          });
+  
+          if (hasReplaced) {
+            replacementsApplied = true;
+          }
+  
+          return hasReplaced;
         } catch(e) {
-          console.warn('Error cleaning up orphaned headers', e);
+          console.warn('Error replacing incidents with events', e);
+          return false;
         }
       }
   
@@ -240,104 +283,58 @@ status-website:
           console.warn('Error setting up time selector', e);
         }
       }
-    
-      function removeCheckIcon() {
+  
+      // Function to ensure Past Events section is visible
+      function ensurePastEventsVisible() {
         try {
-          // Find all articles with "up" class
-          const upArticles = safeQuerySelectorAll('article.up');
+          // Find the Past Events heading
+          const pastEventsH2 = Array.from(safeQuerySelectorAll('h2')).find(
+            h2 => h2.textContent === 'Past Events' || h2.textContent === 'Past Incidents'
+          );
           
-          // For each "up" article, remove the check mark emoji if it exists
-          upArticles.forEach(article => {
-            if (!article || !article.innerHTML) return;
+          if (pastEventsH2) {
+            // Make sure it's visible
+            pastEventsH2.style.display = '';
             
-            if (article.innerHTML.includes('✅')) {
-              article.innerHTML = article.innerHTML.replace('✅ &nbsp;', '');
+            // Make the parent section visible
+            const section = pastEventsH2.closest('section');
+            if (section) {
+              section.style.display = '';
+              
+              // Make all date headers visible
+              const h3Elements = section.querySelectorAll('h3');
+              h3Elements.forEach(h3 => {
+                h3.style.display = '';
+              });
+              
+              // Make all articles (events) visible
+              const articles = section.querySelectorAll('article');
+              articles.forEach(article => {
+                article.style.display = '';
+              });
             }
-          });
+            
+            console.log('Past Events section found and made visible');
+          } else {
+            console.warn('Past Events section not found');
+          }
         } catch(e) {
-          console.warn('Error removing check icon', e);
-        }
-      }
-  
-      function replaceIncidentsWithEvents() {
-        try {
-          replacementsApplied = false;
-          let hasReplaced = false;
-  
-          // Find the specific section containing h2 with class svelte-18y4uo2
-          const targetH2 = safeQuerySelector('h2.svelte-18y4uo2');
-          if (!targetH2) {
-            return false;
-          }
-  
-          // Find the parent section that contains the h2
-          const parentSection = targetH2.closest('section');
-          if (!parentSection) {
-            return false;
-          }
-  
-          // Replace text nodes only within this section
-          try {
-            const walker = document.createTreeWalker(
-              parentSection,
-              NodeFilter.SHOW_TEXT,
-              null,
-              false
-            );
-  
-            let textNode;
-            while (textNode = walker.nextNode()) {
-              if (textNode.nodeValue && textNode.nodeValue.includes('Incident')) {
-                safeReplaceText(textNode, 'Incident', 'Event');
-                hasReplaced = true;
-              }
-            }
-          } catch(e) {
-            console.warn('Error walking DOM tree', e);
-          }
-  
-          // Replace in link text only within this section
-          try {
-            const elements = parentSection.querySelectorAll('a[href*="incident"], a[href*="Incident"]');
-            elements.forEach(element => {
-              if (element.href && element.textContent && element.textContent.includes('Incident')) {
-                element.textContent = element.textContent.replace(/Incident/g, 'Event');
-                hasReplaced = true;
-              }
-            });
-          } catch(e) {
-            console.warn('Error replacing link text', e);
-          }
-  
-          // Also replace the h2 text if it contains "Incidents"
-          if (targetH2.textContent === 'Past Incidents') {
-            targetH2.textContent = 'Past Events';
-            hasReplaced = true;
-          }
-  
-          if (hasReplaced) {
-            replacementsApplied = true;
-          }
-  
-          return hasReplaced;
-        } catch(e) {
-          console.warn('Error replacing incidents with events', e);
-          return false;
+          console.warn('Error ensuring Past Events visibility', e);
         }
       }
   
       // Initial run and setup observer
       function initializePageModifications() {
         try {
-          // Perform initial modifications
+          // Perform initial modifications after a delay to ensure page is loaded
           setTimeout(() => {
             convertDatesToUTC();
             addPastIncidentsId();
             replaceIncidentsWithEvents();
-            limitEvents();
             removeCheckIcon();
             setupTimeSelector();
-          }, 500); // Give the page a little time to fully render
+            ensurePastEventsVisible(); // Make sure past events are visible
+          }, 800); // Give more time for the page to fully render
   
           // Set up mutation observer with error handling
           try {
@@ -360,8 +357,8 @@ status-website:
                   convertDatesToUTC();
                   addPastIncidentsId();
                   replaceIncidentsWithEvents();
-                  limitEvents();
                   removeCheckIcon();
+                  ensurePastEventsVisible(); // Make sure past events are visible
                 }
               } catch(e) {
                 console.warn('Error in mutation observer callback', e);
@@ -373,27 +370,26 @@ status-website:
               subtree: true,
               characterData: true,
               attributes: true,
-              attributeFilter: ['href', 'textContent', 'innerText']
+              attributeFilter: ['href', 'textContent', 'innerText', 'style']
             });
           } catch(e) {
             console.warn('Error setting up mutation observer', e);
           }
   
-          // Backup polling mechanism with reduced frequency
-          const backupInterval = setInterval(() => {
-            try {
-              if (document.body.innerHTML.includes('Incident')) {
-                replaceIncidentsWithEvents();
-              }
-            } catch(e) {
-              console.warn('Error in backup interval', e);
-            }
-          }, 2000); // Check every 2 seconds
-  
-          // Stop backup polling after 20 seconds to save resources
+          // Additional check after a longer delay to catch slow-loading content
           setTimeout(() => {
-            clearInterval(backupInterval);
-          }, 20000);
+            ensurePastEventsVisible();
+          }, 2000);
+  
+          // Periodically check that past events are visible
+          const visibilityInterval = setInterval(() => {
+            ensurePastEventsVisible();
+          }, 5000); // Check every 5 seconds
+  
+          // Stop the interval after 60 seconds
+          setTimeout(() => {
+            clearInterval(visibilityInterval);
+          }, 60000);
         } catch(e) {
           console.warn('Error initializing page modifications', e);
         }
@@ -413,10 +409,11 @@ status-website:
             try {
               replaceIncidentsWithEvents();
               setupTimeSelector();
+              ensurePastEventsVisible();
             } catch(e) {
               console.warn('Error handling popstate event', e);
             }
-          }, 500);
+          }, 800);
         });
   
         // Also handle clicks that might trigger SPA navigation
@@ -426,10 +423,11 @@ status-website:
               try {
                 replaceIncidentsWithEvents();
                 setupTimeSelector();
+                ensurePastEventsVisible();
               } catch(e) {
                 console.warn('Error handling click event', e);
               }
-            }, 500);
+            }, 800);
           }
         });
       } catch(e) {
