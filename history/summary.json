@@ -8,12 +8,12 @@
     "uptime": "98.66%",
     "uptimeDay": "99.40%",
     "uptimeWeek": "99.00%",
-    "uptimeMonth": "98.65%",
+    "uptimeMonth": "98.54%",
     "uptimeYear": "98.66%",
     "time": 2491,
     "timeDay": 480,
     "timeWeek": 653,
-    "timeMonth": 2539,
+    "timeMonth": 2510,
     "timeYear": 2491,
     "dailyMinutesDown": {
       "2025-03-28": 9,
@@ -53,15 +53,15 @@
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
     "slug": "liquibase-io-web",
     "status": "up",
-    "uptime": "99.14%",
+    "uptime": "99.15%",
     "uptimeDay": "99.40%",
     "uptimeWeek": "98.99%",
-    "uptimeMonth": "99.22%",
-    "uptimeYear": "99.14%",
+    "uptimeMonth": "99.12%",
+    "uptimeYear": "99.15%",
     "time": 1685,
     "timeDay": 1606,
     "timeWeek": 1944,
-    "timeMonth": 1709,
+    "timeMonth": 1721,
     "timeYear": 1685,
     "dailyMinutesDown": {
       "2025-03-28": 9,
@@ -106,7 +106,7 @@
     "time": 1002,
     "timeDay": 1599,
     "timeWeek": 1528,
-    "timeMonth": 1008,
+    "timeMonth": 1015,
     "timeYear": 1002,
     "dailyMinutesDown": {}
   },
@@ -124,7 +124,7 @@
     "time": 1061,
     "timeDay": 1788,
     "timeWeek": 1686,
-    "timeMonth": 1084,
+    "timeMonth": 1089,
     "timeYear": 1061,
     "dailyMinutesDown": {
       "2025-03-11": 15
@@ -144,7 +144,7 @@
     "time": 975,
     "timeDay": 1555,
     "timeWeek": 1603,
-    "timeMonth": 1018,
+    "timeMonth": 1024,
     "timeYear": 975,
     "dailyMinutesDown": {}
   }
