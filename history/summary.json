@@ -147,19 +147,19 @@
     "url": "$LIQUIBASE_IO_CONNECTION_TESTER_URL",
     "icon": "https://raw.githubusercontent.com/liquibase/liquibase-io-status/master/static/img/liquibase_fav.svg",
     "slug": "liquibase-io-connection-tester",
-    "status": "down",
-    "uptime": "99.81%",
-    "uptimeDay": "90.90%",
-    "uptimeWeek": "98.70%",
-    "uptimeMonth": "99.70%",
-    "uptimeYear": "99.81%",
-    "time": 1063,
-    "timeDay": 2380,
-    "timeWeek": 2079,
-    "timeMonth": 1147,
-    "timeYear": 1063,
+    "status": "up",
+    "uptime": "99.77%",
+    "uptimeDay": "89.21%",
+    "uptimeWeek": "98.46%",
+    "uptimeMonth": "99.65%",
+    "uptimeYear": "99.77%",
+    "time": 1066,
+    "timeDay": 2287,
+    "timeWeek": 2043,
+    "timeMonth": 1151,
+    "timeYear": 1066,
     "dailyMinutesDown": {
-      "2025-04-02": 131
+      "2025-04-02": 155
     }
   }
 ]
