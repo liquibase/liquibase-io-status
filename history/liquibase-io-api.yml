@@ -1,7 +1,7 @@
 url: $LIQUIBASE_IO_API_URL
-status: down
-code: 404
-responseTime: 251
-lastUpdated: 2025-04-20T23:45:51.377Z
+status: up
+code: 200
+responseTime: 185
+lastUpdated: 2025-04-20T23:52:26.516Z
 startTime: 2025-02-14T12:22:54.219Z
 generator: Upptime <https://github.com/upptime/upptime>
