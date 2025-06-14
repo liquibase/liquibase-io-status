@@ -1,7 +1,7 @@
 url: $LIQUIBASE_IO_RUNNER_URL
 status: up
 code: 200
-responseTime: 495
-lastUpdated: 2025-06-13T23:01:26.000Z
+responseTime: 1475
+lastUpdated: 2025-06-14T23:00:54.756Z
 startTime: 2025-02-14T12:22:54.903Z
 generator: Upptime <https://github.com/upptime/upptime>
